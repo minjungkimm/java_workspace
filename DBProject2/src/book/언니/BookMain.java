@@ -1,5 +1,5 @@
 package book;
-
+ 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Checkbox;
@@ -27,7 +27,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+ 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -35,9 +35,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-public class BookMain extends JFrame implements ItemListener,ActionListener{
-	
+ 
+public class BookMain extends JFrame implements ItemListener, ActionListener{
 	Connection con;
 	DBManager manager=DBManager.getInstance();
 	PreparedStatement pstmt;
@@ -46,8 +45,7 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 	JPanel p_west; //좌측 등록폼
 	JPanel p_content; //우측 영역 전체
 	JPanel p_north; //우측 선택 모드 영역
-	JPanel p_center; //Flow가 적용되어 , p_table, p_grid 
-	//모두 존재시켜놓을 컨테이너역할
+	JPanel p_center; //Flow가 적용되어 p_table, p_grid 를 모두 존재시켜 놓을 컨테이너 역할!!
 	JPanel p_table; //JTable 이 붙여질 패널
 	JPanel p_grid; //그리드가 붙여질 패널
 	Choice ch_top;
@@ -58,29 +56,24 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 	JButton bt_regist;
 	CheckboxGroup group;
 	Checkbox ch_table, ch_grid;
-	Toolkit kit=Toolkit.getDefaultToolkit();
-	//일종의 싱글톤
+	Toolkit kit=Toolkit.getDefaultToolkit(); //이것도 일종의 singleTon패턴
 	Image img;
 	JFileChooser chooser;
 	File file;
-	TablePanel tablepanel;
-	//html option 과는 다르므로, Choice 컴포넌트의
-	//값을 미리 받아놓자!!
-	//우리가 담을 객체 하나하나는 서브카테고리!!
-	//이 컬렉션은 rs 객체를 대체할 것이다.
-	//그럼으로서 얻는 장점?? 
-	//더이상 rs.last, rs.getRow 고생하지 말자!!
+ 
 	
-	ArrayList<SubCategory> subcategory = new ArrayList<SubCategory>();
-	//String[][] subcategory; 지우고 이제 어레이리스트로..
-	//메모리에 생성되는 시점은 국내, 외국도서 선택시점..
+	//html option과는 다르므로, Choice 컴포넌트의 값을 미리 받아놓자!!
+	//이 컬렉션은  rs 객체를 대체할 것이다
+	//장점? 더이상 rs.last, rs.getRow로 고생하지 말자!
+	ArrayList<SubCategory> subcategory=new ArrayList<SubCategory>();
 	
 	public BookMain() {
 		setLayout(new BorderLayout());
-		p_content = new JPanel();
+		
 		p_west = new JPanel();
-		p_center = new JPanel();
+		p_content = new JPanel();
 		p_north = new JPanel();
+		p_center= new JPanel();
 		
 		p_table = new TablePanel();
 		p_grid = new GridPanel();
@@ -88,32 +81,20 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 		ch_top = new Choice();
 		ch_sub = new Choice();
 		
-		t_name = new JTextField(10);
-		t_price = new JTextField(10);
-		
-		URL url = this.getClass().getResource("/deil.jpg");
-		
+		t_name = new JTextField(12);
+		t_price = new JTextField(12);
+		URL url=this.getClass().getResource("/deil.jpg");
 		try {
-			img = ImageIO.read(url);
+			img=	ImageIO.read(url);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		can = new Canvas(){
-			@Override //Toolkit 과 icon 제외하고 이미지만을 띄울수 있을까?
 			public void paint(Graphics g) {
-				//ImageIO 사용해보자
-				//ImageIO.read(); 어플리케이션 내의 사진 등록.. (카카오톡 이미지같은)
-				//사용자가 이미지를 얻어오는게 아니라 , 프로그램 내에서 얻어올때..
-				g.drawImage(img,0,0,140,140,this);
-				
+				g.drawImage(img,0, 0, 140, 140, this);
 			}
-			
 		};
-		
-		//파일 추저 올리기
-		chooser = new JFileChooser("c:/html_workspace/images");
-		
 		can.setPreferredSize(new Dimension(150, 150));
 		
 		bt_regist = new JButton("등록");
@@ -122,6 +103,8 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 		ch_table = new Checkbox("JTable",group,false);
 		ch_grid = new Checkbox("Grid",group,false);
 		
+		//파일 추저 올리기
+		chooser=new JFileChooser("C:/html_workspace/images");
 		
 		ch_top.setPreferredSize(new Dimension(130, 45));
 		ch_sub.setPreferredSize(new Dimension(130, 45));
@@ -136,40 +119,40 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 		p_west.add(bt_regist);
 		p_west.setBackground(Color.WHITE);
 		p_west.setPreferredSize(new Dimension(150, 600));
-		
 		add(p_west,BorderLayout.WEST);
 		
+		//컨텐츠 북쪽
 		p_north.add(ch_table);
 		p_north.add(ch_grid);
 		
-		p_north.setPreferredSize(new Dimension(650, 100));
-		
-		p_content.add(p_north,BorderLayout.NORTH);
 		
 		p_center.setBackground(Color.YELLOW);
-		
-		p_content.add(p_center);
-		
 		p_center.add(p_table);
 		p_center.add(p_grid);
 		
-		//p_centent.setPreferredSize(new Dimension(400, 600));
+		//p_north.setPreferredSize(new Dimension(650, 100));
+		p_content.add(p_north,BorderLayout.NORTH);
+		p_content.add(p_center);
+		p_content.setPreferredSize(new Dimension(400, 600));
 		add(p_content);
 		
 		init();
 		ch_top.addItemListener(this);
 		can.addMouseListener(new MouseAdapter() {
-			@Override
+			
 			public void mouseClicked(MouseEvent e) {
 				openFile();
+				
 			}
+			
 		});
 		
 		bt_regist.addActionListener(this);
 		
-		//초이스 컴포넌트와 연결
+		//초이스 컴포넌트와 리스너 연결
 		ch_table.addItemListener(this);
 		ch_grid.addItemListener(this);
+		
 		
 		setVisible(true);
 		setSize(800,600);
@@ -179,11 +162,10 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 		
 	}
 	
-	//book 테이블의 레코드 받기
 	private void init() {
 		//초이스 컴포넌트에 최상위 목록 보이기!!
 		con=manager.getConnection();
-		String sql="select * from topcategory";
+		String sql="select * from topcategory order by topcategory_id asc";
 		
 		try {
 			
@@ -196,7 +178,7 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 			//커서를 자유롭게 움직여야 하는 이유는 배열의 크기를 만들기 위해서였다!!
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}finally{
 			if(rs!=null){
@@ -216,9 +198,9 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 				}
 			}
 		}
+		
 		//테이블 패널과 그리드 패널에게 Connection 전달
-		//변신할거야 !!!!!!!!!!!!!!
-		((TablePanel)p_table).setConnection(con);
+		((TablePanel)p_table).setConnection(con); //p_table의 자료형이 JPanel이므로 자식과 같은 TablePanel형으로 변신
 		((GridPanel)p_grid).setConnection(con);
 	}
 	
@@ -227,11 +209,11 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 		//기존에 이미 채워진 아이템이 있다면, 먼저 싹 지운다!!
 		ch_sub.removeAll();
 		StringBuffer sb = new StringBuffer();
-		sb.append("select * from subcategory");
+		sb.append("select * from subcategory ");
 		sb.append(" where topcategory_id=(");
 		//하나 더 붙히기전에 한칸 뛴거옝ㅅ!!!
 		sb.append("select topcategory_id from");
-		sb.append("  topcategory where category_name='"+v+"')");
+		sb.append("  topcategory where category_name='"+v+"') order by subcategory_id asc"); //order by where절 맨 끝에
 		
 		System.out.println(sb.toString());
 		
@@ -242,36 +224,23 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 			pstmt=con.prepareStatement(sb.toString());
 			rs=pstmt.executeQuery();
 			
-			//rs에 담겨진 레코드 1개는 SubCategory 
-			//클래스의 인스턴스 1개로 받자!!
-			//rs.next();
-			
-			//텅빈 dto 상태
-			//int subcategory_id=rs.getInt("subcategory_id"); //rs에서 이사가자
-			//dto.setSubcategory_id(subcategory_id);
+			//rs에 담겨진 레코드 1개는 SubCategory 클래스의 인스턴스 1개로 받자!!
 			while(rs.next()){
-				SubCategory dto = new SubCategory();
+			SubCategory dto=new SubCategory();
 				dto.setSubcategory_id(rs.getInt("subcategory_id"));
 				dto.setCategory_name(rs.getString("category_name"));
 				dto.setTopcategory_id(rs.getInt("topcategory_id"));
 				
-				subcategory.add(dto); //컬렉션담기!!
-				ch_sub.add(dto.getCategory_name()); //가져왓다 카테고리네임을..
+				subcategory.add(dto); //컬렉션에 담기!!
+				ch_sub.add(dto.getCategory_name());
 			}
-			//rs 더이상 필요없다~~ 컬렉션프레임웍 사용하니깐~~
 			
-			
-			/*while(rs.next()){
-				ch_sub.add(rs.getString("category_name"));
-			}*/
-			
-			
-			//서브카테고리의 정보를 2차원 배열에 
-			//담아놓자!! 담기+ 출력
-			//subcategory = new String[레코드수][컬럼수];
-			//rs 에 들어있는 이차원 배열의 레코드 수 , 컬럼 수
-			
-			
+			//DB에서 테이블은 자바의 거푸집 개념. emp테이블에 scott을 넣으면 이것은 인스턴스
+			//서브카테고리의 정보를 2차원 배열에 담기 + 출력
+			//테이블이 만들어지면 클래스를 염두에 두기.
+			//->ex) subcategory 레코드를 subcategory클래스의 거푸집으로부터 태어난 인스턴스, 
+			//클래스는 반드시 로직만 존재하는 것이 아니라 인스턴스만 존재하기도 함.
+		 //[레코드 수][컬럼 수]
 			
 		} catch (SQLException e) {
 		
@@ -297,164 +266,154 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 	}
 	
 	//상품 등록 메서드
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		regist();
-		
-	}
-	
 	public void regist(){
-		//내가 지금 선택한 서브 카테고리 초이스의 index를 구해서
-		//그 index 로 ArrayList 를 접근하여, 객체를 반환 받으면
-		//정보를 유용하게 쓸수 있다..
-		
+		//내가 지금 선택한 서브 카테고리 초이스의 index를 구해서, 그 index로 ArrayList를 접근하여 객체를 반환받으면
+		//정보를 유용하게 쓸 수 있다.
 		int index=ch_sub.getSelectedIndex();
-		//array 리스트에서 뭘가져올지
 		SubCategory dto=subcategory.get(index);
-		//이름 , 아이디값, 프라이머키 .. 들어있다..
+	
+		String book_name=t_name.getText();//책이름
+		int price=Integer.parseInt(t_price.getText()); //어차피 안에 들어가면 String형으로 받아지지만 자료형을 정확히 명시하는 것이 좋다!
+		String img=file.getName(); //파일명
 		
-		String book_name=t_name.getText();//책이름 
-		//자료형이 안맞으니깐 //int 를 일부러 쓴 이유는.. 자료형의 정확한 명시를위해!!
-		int price=Integer.parseInt(t_price.getText());
-		String img=file.getName();//파일명
 		
-		StringBuffer sb = new StringBuffer();
-		sb.append("insert into book(book_id,subcategory_id,book_name,price,img)");
-		//subcategory_id 는 우리가 선택한대로 가기때문에...
-		//배열로 만들어놓자..
-		sb.append(" values(seq_book.nextval,"+dto.getSubcategory_id()+",'"+book_name+"',"+price+",'"+img+"')");
-		//Blob ??
+		StringBuffer sb=new StringBuffer();
+		
+	
+		sb.append("insert into book(book_id, subcategory_id, book_name, price, img)"); //img는 이름만 넣고 하드디스크에 따로 저장할 예정
+		sb.append("values(seq_book.nextval,"+dto.getSubcategory_id()+",'"+book_name+"',"+price+",'"+img+"')");
+		
+		//화면에도 보여지도록
+		
 		
 		System.out.println(sb.toString());
 		
-		//PreparedStatement pstmt = null;
-		
+		PreparedStatement pstmt=null;
 		try {
 			pstmt=con.prepareStatement(sb.toString());
-			//반환형을 먼저 적으면 이클립스가 알아먹는다..
-			//SQL문이 DML(insert,delet,update) //변경가할수있다
-			int result=pstmt.executeUpdate();
 			
-			//위의 메서드는 숫자값을 반환하며, 이 숫자값이
-			//쿼리에 의해 영향을 받는 레코드수를 반환
-			//insert 의 경우 언제나?? 반환될까? 1
+			//SQL문이 DML(insert, delete, update) 데이터 조작어일 경우
+			int result=pstmt.executeUpdate(); 
+			
+			//위의 메서드는 숫자값을 반환하며, 이 숫자값은 이 쿼리에 의해 영향을 받는 레코드 수를 반환한다
+			//insert의 경우 언제나 1이 반환된다
 			if(result!=0){
-				//System.out.println(book_name+"등록성공");
-				//ArrayList 나 vector 계열은 지우고 넣어야됨,, 쌓이니깐
+				//System.out.println(book_name+"등록 성공");				
 				copy();
 				
-				((TablePanel)p_table).init(); //조회일으키기
-				((TablePanel)p_table).table.updateUI(); //UI갱신
+				((TablePanel)p_table).init(); //조회 일으킴
+				((TablePanel)p_table).table.updateUI();; //UI 갱신
 				
-			}else{System.out.println(book_name+"등록실패");
+			}else{
+				System.out.println(book_name+"등록 실패");
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("쿼리문 실패");
 			e.printStackTrace();
-		} finally{
-			if(pstmt!=null){try {
-				pstmt.close();
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}	
-			
-			}//f 꿑
-				
+		}finally{
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
+		
+		
 	}
-	
-	@Override
+ 
 	public void itemStateChanged(ItemEvent e) {
 		Object obj=e.getSource();
-		
 		if(obj==ch_top){
 			Choice ch=(Choice)e.getSource();
 			getSub(ch.getSelectedItem());
 		}else if(obj==ch_table){
-			System.out.println("테이블 볼래?");
+			//System.out.println("테이블 볼래?");
 			p_table.setVisible(true);
 			p_grid.setVisible(false);
 		}else if(obj==ch_grid){
-			System.out.println("그리드 볼래?");
+			//System.out.println("그리드 볼래?");
 			p_table.setVisible(false);
 			p_grid.setVisible(true);
 		}
+		
 	}
 	
-
-	
-	//그림 파일 불러오기
+	//그림파일 불러오기
 	public void openFile(){
-		
 		int result=chooser.showOpenDialog(this);
+		
 		if(result==JFileChooser.APPROVE_OPTION){
-			//열기창에서 확인 버튼을 누르면..
-			//선택한 이미지를 캔버스에 그릴 것이다.
+			//선택한 이미지를 canvas에 그릴것이다!
 			file=chooser.getSelectedFile();
 			img=kit.getImage(file.getAbsolutePath());
 			can.repaint();
+			
 		}
 	}
 	
-	/*이미지복사하기
-	*유저가 선택한 이미지를, 개발자 지정한 위치로
-	*복사를 해놓자!! */
+	/*이미지 복사하기
+	유저가 선택한 이미지를, 개발자가 지정한 위치로 복사를 해놓자!
+	*/
 	public void copy(){
 		FileInputStream fis=null;
 		FileOutputStream fos=null;
+		
 		try {
-		fis= new FileInputStream(file);
-		
-		String filename=file.getName();
-		String dest="C:/Java_workspace2/DBProject2/data/"+filename;
-		
-		fos= new FileOutputStream(dest);
-		
-		int data; //읽어들인 데이터가 x, 갯수가 들어있다..
-		
-		//data 를 1024 크기만큼 빨아들인 후 1024 채워지만 읽는다!!
-		//읽어들인 데이터는 여기에
-		byte[] b= new byte[1024]; //[] 용량 크기는 개발자가 정할수있다 //1024 1kByte
-			while(true){
-				data=fis.read(b); //실제데이터는 byte 에 들어있다..
-				if(data==-1)break;
-				fos.write(b);
-			}
-			JOptionPane.showMessageDialog(this, "등록완료");
-		} catch (FileNotFoundException e) {
+			fis=new FileInputStream(file);
 			
+			String filename=file.getName();
+			String dest="C:/java_workspace2/DBProject2/data/"+filename;
+			fos=new FileOutputStream(dest);
+			
+			int data; //읽어들인 데이터가 들어가지 않음. 개수만 들어감. 
+			byte[] b=new byte[1024]; //한번 읽을 때 1 KByte 씩 읽겠다 ,[용량]개발자가 정할 수 있음..
+			while(true){
+				data=fis.read(b); // read(byte[] b) ->일종의 버퍼 , 속도 빠름 , 배열에 담은 다음에 빨아들임->실제 데이터는 byte에 들어감
+				fos.write(b); //write(byte[] b)
+				if(data==-1)break;
+			}
+			JOptionPane.showMessageDialog(this, "등록 완료");
+		} catch (FileNotFoundException e) {
+			System.out.println("파일을 찾을 수 없습니다");
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+			System.out.println("파일을 읽을 수 없습니다");
 			e.printStackTrace();
-		} finally{
-			if(fis!=null){
+		}finally{
+			if(fos!=null){
 				try {
-					fis.close();
+					fos.close();
 				} catch (IOException e) {
 					
 					e.printStackTrace();
 				}
 			}
-			if(fos!=null){try {
-				fos.close();
-			} catch (IOException e) {
-				
-				e.printStackTrace();
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			
-			}//
 		}
-	
 	}
 	
+ 
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println("나 누름?");
+		regist();
+	
+		
+	}
 	
 	public static void main(String[] args) {
 		new BookMain();
 	}
-
-
-
+ 
+ 
+ 
 }
