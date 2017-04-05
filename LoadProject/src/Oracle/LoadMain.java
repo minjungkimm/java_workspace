@@ -13,7 +13,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -30,7 +35,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DataFormatter;
 
-public class LoadMain extends JFrame implements ActionListener{
+public class LoadMain extends JFrame implements ActionListener,TableModelListener{
 	JPanel p_north;
 	JButton bt_open,bt_load,bt_excel,bt_del;
 	JTable table;
@@ -44,6 +49,9 @@ public class LoadMain extends JFrame implements ActionListener{
 	Connection con;
 	DBManager manager=DBManager.getInstance(); //디비매니저 new한것
 	PreparedStatement pstmt=null;
+	Vector<Vector> list;
+	Vector columnName;
+
 	public LoadMain() {
 		
 		p_north = new JPanel();
@@ -82,6 +90,7 @@ public class LoadMain extends JFrame implements ActionListener{
 			}
 			
 		});
+		
 		
 		setVisible(true);
 		setSize(800,600);
@@ -172,6 +181,7 @@ public class LoadMain extends JFrame implements ActionListener{
 					pstmt=con.prepareStatement(sb.toString());
 					int result =pstmt.executeUpdate();
 					
+					//missing expression 시 데이터 문제일수 있으니 확인하세요
 					//기존에 누적된 StringBuffer 의
 					//데이터를 모두 지우기
 					//0은 시작 sb.length 는 끝까지를 뜻함
@@ -182,6 +192,16 @@ public class LoadMain extends JFrame implements ActionListener{
 				}
 			}
 			JOptionPane.showMessageDialog(this, "마이그레이완료");
+			
+			//JTable 나오게 처리!!
+			getList(); //데이터 연동함!!
+			table.setModel(new MyModel(list, columnName)); //columnName 도 멤버변수화
+			
+			//테이블 모델과 리스너와의 연결
+			//테이블은 테이블모델 //내가쓰고있는모델 반환해준다
+			//getModel()
+			table.getModel().addTableModelListener(this);
+			table.updateUI(); //모델이 최신상태로 업데이트됨..
 			
 		} catch (IOException e) {
 			
@@ -246,7 +266,7 @@ public class LoadMain extends JFrame implements ActionListener{
 						//자료형에 국한되지 않고 모두 String 처리할수있다..
 						String value = df.formatCellValue(cell);
 						//String으로 반환해준다!!
-						System.out.print(value);
+						System.out.print(value); //println 아니라 print 입니다!! ln 은 바깥층에서!!
 						//줄바꿈은 언제일어날까?	
 					}
 					//바깥층에서..
@@ -266,6 +286,67 @@ public class LoadMain extends JFrame implements ActionListener{
 		}
 	}
 	
+	//모든 레코드 가져오기
+	public void getList(){
+		//모델가져오기 전에 select 문부터 가져와야지 데이터가 뜬다
+		String sql="select * from hospital order by seq asc";
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		
+		try {
+			
+			pstmt=con.prepareStatement(sql);
+			//rs의 존재를 테이블이 알아야 한다
+			rs=pstmt.executeQuery();
+			//rs를 이차원백터로 가공 후 없앨것이다..
+			//하나의 레코드 = 하나의 백터
+			
+			//컬럼명도 추출!!
+			ResultSetMetaData meta = rs.getMetaData();
+			int count = meta.getColumnCount();
+			columnName = new Vector();//잊지말자 
+			
+			for(int i=0; i<count; i++){
+				columnName.add(meta.getColumnName(i+1));
+				//rs 는 이차원 백터에게 데이터를 넘겨주고 , 컬럼명도 알려주고 끝..
+			}
+			
+			//Vector list = new Vector(); //이차원 백터!! , 1차원 백터를 담을 것
+			list = new Vector<Vector>(); //이차원 백터!! , 1차원 백터를 담을 것
+			
+			//여기서부터
+			while(rs.next()){ //커서 한칸 전진~
+				Vector vec = new Vector(); //1차원 백터, 레코드 1건 담을것
+				
+				//getIndex 도 사용가능하나, 컬럼명과 정확한 일치 및 컬럼을 담는다는 의미를 부여하기위해
+				vec.add(rs.getString("seq")); 
+				vec.add(rs.getString("name"));
+				vec.add(rs.getString("addr"));
+				vec.add(rs.getString("regdate"));
+				vec.add(rs.getString("status"));
+				vec.add(rs.getString("dimension"));
+				vec.add(rs.getString("type"));
+				
+				list.add(vec);
+			}
+			//여기까지 하나의 레코드!!
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally{
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}//
+			
+	}
 	
 	//선택한 레코드 삭제
 	public void delete(){
@@ -285,6 +366,15 @@ public class LoadMain extends JFrame implements ActionListener{
 			delete();
 		}
 		
+	}
+	
+	//테이블 모델의 데이터값에 변경이 발생하면
+	//그 찰나를 감지하는 리스너!
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		System.out.println("나 바꿧어!!!");
+		//update hospital set 컬럼명 name = 값 where ~ 출력하기..
+		//수정할 때 마다 update 문이 제대로 나오게끔..
 	}
 	
 	public static void main(String[] args) {
