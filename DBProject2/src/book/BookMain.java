@@ -6,6 +6,7 @@ import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -304,6 +305,11 @@ public class BookMain extends JFrame implements ItemListener,ActionListener{
 	}
 	
 	public void regist(){
+		//등록이 완료되기전에, 기존에 등록된 추가된 컴포넌트가 있다면, 컴포넌트 지우기
+		//removeall 쓰면 복합적으로 다지워짐.. component은 받아서 자료형 선택가능, 형변환도 가능..
+		Component[] comp=p_grid.getComponents();
+		System.out.println("포함한자식은?"+comp.length);
+		
 		//내가 지금 선택한 서브 카테고리 초이스의 index를 구해서
 		//그 index 로 ArrayList 를 접근하여, 객체를 반환 받으면
 		//정보를 유용하게 쓸수 있다..

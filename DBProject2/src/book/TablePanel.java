@@ -1,80 +1,88 @@
-//JTable이 얹혀질 패널
+/*
+ * JTable이 얹혀질 패널
+ * */
 package book;
- 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.print.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
- 
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
- 
+
 public class TablePanel extends JPanel{
 	Connection con;
 	JTable table;
 	JScrollPane scroll;
+	//오늘은 테이블 모델을 내부익명으로 가자..
 	TableModel model;
-	//vector는 백그라운드로 동기화 제공: 안정성은 있지만, ArrayList에 비해연산속도가 느림-> 상황에 따라 골라쓰기
-	Vector list=new Vector(); 
-	Vector<String> columnName=new Vector<String>();
- 
-	int cols;
-
-	//얻어와야지 하면 무조건 메서드 전달을 생각!
-	public TablePanel() {
-		this.con=con;
-		//테이블 나오기 전 db 연동 먼저!
 	
+	//Vector ArrayList 둘다 같다
+	//차이점? 동기화 지원여부
+	Vector list = new Vector();
+	Vector <String> columnName = new Vector<String>();
+	
+	//book 클래스 생성
+	int cols;
+	
+	public TablePanel() { //인터페이스니깐 자식을 뉴한다..
+		//db 연동
+		this.con=con;
 		
-		table=new JTable();
-		scroll=new JScrollPane(table);
-		this.setLayout(new BorderLayout());
-		this.add(scroll);
 		
+		table = new JTable();
+		scroll = new JScrollPane(table);
+		add(scroll);
 		
-		
-		this.setBackground(Color.PINK);
 		setPreferredSize(new Dimension(650, 550));
+		setBackground(Color.PINK);
 	}
 	
-	//생성자에 넣었을 때 타이밍 문제로 메서드로 따로 만들어줌. 내가 원할 때 호출할 수 있음
+	//생성자는 생성할 때 , 일반메서드는 메서드 호출할때
 	public void setConnection(Connection con){
 		this.con=con;
 		
-		init(); //커넥션을 넘겨받았을 때 실행!
+		init();
 		
-		//테이블 모델을 jtable에 적용
-		model=new AbstractTableModel() {		
-			public int getRowCount() {				
+		//테이블 모델을 JTable 에 적용
+		model = new AbstractTableModel() {
+			
+			@Override
+			public int getRowCount() {
 				return list.size();
 			}
 			
+			@Override
 			public int getColumnCount() {
 				return cols;
 			}
 			
-			public Object getValueAt(int row, int col) {			
-				Vector vec=(Vector)list.get(row); 
+			//JTable 이 호출하는 메서드
+			@Override
+			public Object getValueAt(int row, int col) {
+				Vector vec = (Vector)list.get(row);
+				
 				return vec.elementAt(col);
 			}
 			
-		
 		};
+		
 		//테이블에 모델 적용
 		table.setModel(model);
 	}
 	
-	//book 테이블의 레코드 (데이터베이스 가져오기)
-	public void init(){
+	//book 테이블의 레코드 가져오기
+	public void init() {
 		String sql="select * from book order by book_id asc";
+		//pstmt 는 con에 의존적,, con 을얻어오자
+	
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
@@ -83,43 +91,34 @@ public class TablePanel extends JPanel{
 			rs=pstmt.executeQuery();
 			cols=rs.getMetaData().getColumnCount();
 			
-			//기존 데이터 모두 지우기
-			list.removeAll(list);
-			columnName.removeAll(columnName);
 			
 			//rs의 정보를 컬렉션의 DTO로 옮겨담자!!
-			while(rs.next()){
-				Vector<String> data=new Vector<String>();
-				
-				data.add(Integer.toString(rs.getInt("book_id")));
-				data.add(rs.getString("book_name"));
-				data.add(Integer.toString(rs.getInt("price")));
-				data.add(rs.getString("img"));
-				data.add(Integer.toString(rs.getInt("subcategory_id")));
-				
-				list.add(data); //기본 벡터에 벡터 추가
-			}
+		while(rs.next()){
+			Vector<String> data= new Vector<String>();
+			
+			data.add(Integer.toString(rs.getInt("book_id")));
+			data.add(rs.getString("book_name"));
+			data.add(Integer.toString(rs.getInt("price")));
+			data.add(rs.getString("img"));
+			data.add(Integer.toString(rs.getInt("subcategory_id")));
+			
+			list.add(data);
+		}	
 			
 		} catch (SQLException e) {
+			System.out.println("쿼리문 실패");
 			e.printStackTrace();
 		}finally{
 			if(rs!=null){
 				try {
 					rs.close();
 				} catch (SQLException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			if(pstmt!=null){
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				
 			}
 		}
 		
-		
 	}
-	
 }
