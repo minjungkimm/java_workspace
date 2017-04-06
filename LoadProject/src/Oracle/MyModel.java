@@ -48,7 +48,15 @@ public class MyModel extends AbstractTableModel{
 	@Override
 	public boolean isCellEditable(int row, int col) {
 	//true 해놓으면 , (0,0) 부터 차례로 물으면서 수정가능한지 묻게될때마다 모든 물음에 true 대답
-		return true;
+		//조건을 줘서 수정이 가능/불가능 나누자..
+		boolean flag=false;
+		if(col==0){
+			flag=false;
+		}else{
+			flag=true;
+		}
+		
+		return flag;
 		//변경 시 데이터 체인지되라
 
 	}
