@@ -68,6 +68,7 @@ public class LoadMain extends JFrame implements ActionListener,TableModelListene
 	StringBuffer insertSql = new StringBuffer();
 	String seq; //마우스클릭이벤트 에서 생성한 변수.. 
 	//삭제버튼 누르면 다시 가져다 쓸것이니깐
+	MyModel myModel;
 	
 	public LoadMain() {
 		
@@ -239,7 +240,8 @@ public class LoadMain extends JFrame implements ActionListener,TableModelListene
 			
 			//JTable 나오게 처리!!
 			getList(); //데이터 연동함!!
-			table.setModel(new MyModel(list, columnName)); //columnName 도 멤버변수화
+			table.setModel(myModel=new MyModel(list, columnName)); //columnName 도 멤버변수화
+							//숙제 //myModel 이라는 변수 추가후 , 멤버변수화함..
 			
 			//테이블 모델과 리스너와의 연결
 			//테이블은 테이블모델 //내가쓰고있는모델 반환해준다
@@ -474,6 +476,14 @@ public class LoadMain extends JFrame implements ActionListener,TableModelListene
 				//0이 아니면
 				if(result!=0){
 					JOptionPane.showMessageDialog(this, "삭제완료");
+					//JTable ---> 테이블모델만 쳐다봄
+					//테이블모델은 ----> 세가지 메서드만 쳐다봄
+					//세가지 메서드의 데이터는 -----> 오라클 db 에 의해
+					//우리가 오라클 db는 삭제하였으나 , 테이블모델에는 반영 x
+					getList();
+					//방금 완성된 list 를 다시 MyModel 에 대입!!
+					myModel.list=list;
+					//**숙제
 					table.updateUI();
 					//삭제 후 갱신되게 하기 ** 숙제!!
 				}
