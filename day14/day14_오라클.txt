@@ -1,0 +1,132 @@
+/*데이터 관리의 효율상 테이블은
+중복된 데이터를 분리시켜 즉 정규화 과정을 통해 데이터를 관리해야한다
+하지만 물리적으로 분리된 데이터를 하나처럼 보여주기 쉽지 않다.*/
+--물리적으로 분리된 테이블을 마치 하나처럼 보여주는 기법 --> 조인(join)
+select ename, dname
+from emp, dept;
+
+--제조사 테이블 만들기
+create table company(
+	company_id number primary key
+	, brand varchar2(20)
+);	
+
+--오라클을 구성하는 객체 중 오직 숫자값만을
+--관리해주는 객체를 시퀀스라 한다
+create sequence seq_company
+increment by 1
+start with 1;
+
+insert into company(company_id,brand)
+values(seq_company.nextval, '지오다노');
+
+insert into company(company_id,brand)
+values(seq_company.nextval, '뱅뱅');
+
+insert into company(company_id,brand)
+values(seq_company.nextval, '나이키');
+
+commit;
+
+select * from company;
+
+--상품 테이블 제거
+drop table product;
+
+--상품 테이블 생성하기
+create table product(
+	product_id number primary key
+	, company_id number --부모의 primary key
+	, name varchar2(30)
+	, price number
+);
+--시퀀스 지우는 방법
+drop sequence seq_product;
+
+create sequence seq_product
+increment by 1
+start with 1;
+
+select * from company;
+
+-- 지오다노 3건 넣기
+insert into product(product_id,company_id,name,price)
+values(seq_product.nextval,1,'청바지',10000);
+
+insert into product(product_id,company_id,name,price)
+values(seq_product.nextval,1,'반바지',20000);
+
+insert into product(product_id,company_id,name,price)
+values(seq_product.nextval,1,'핫바지',30000);
+
+select * from product;
+
+insert into product(product_id,company_id,name,price)
+values(seq_product.nextval,2,'가디건',50000);
+
+insert into product(product_id,company_id,name,price)
+values(seq_product.nextval,2,'치마',70000);
+
+commit;
+select * from product;
+
+select *
+from company, product
+where company.company_id
+=product.company_id;
+
+--company(행 2개)*product(행 5개) = 10번 일어남
+-- n * m 은 피해갈 수 없다.. -> 조건을 주자
+--where company_id 가 같은것..
+
+select * from dept;
+select * from emp;
+
+--뷰를 언제 써야 하나?
+create view myView
+as
+select * from dept, emp
+where dept.deptno=
+emp.deptno;
+
+--조건을 줬다 56건 -> 14건으로 정상 조회됨..
+--마치 테이블을 하나처럼 보여주는 기법 !! 그 쿼리문을 조인 Join 이다!!
+--근데 왜 분리되어있을까? 중복방지를 위해서!!
+
+--1.조인여부
+-- 위치가 시카고인 부서에 속한 사원들의 이름과 부서명을 출력하세요.
+-- 이름과 부서명은 서로 다른 테이블에 있기 때문에 그래서 조인이다!!
+
+select ename, dname from emp,dept
+where emp.deptno=dept.deptno and
+loc='CHICAGO';
+
+-- SCOTT보다 입사일이 늦은 사원과 같은 부서에서 근무하는
+--사원들의 부서명, 이름 ,급여를 출력하세요.
+--SCOTT보다 입사일이 늦은 사원과 같은 부서// 결과가 여러개라서
+--= 말고 in으로해야한다..
+--혼동될경우 dept.deptno in <<에서처럼 ..
+select dname,ename,sal from emp,dept
+where emp.deptno=dept.deptno and
+dept.deptno in(
+ select deptno from emp where hiredate>
+ (select hiredate from emp where ename='SCOTT'));
+ -- 소괄호안에 들어오면 혼동되지 않는다.. 
+
+--최소 급여를 받는 사원과 같은
+--부서에서 근무하는 모든 사원명, 부서명을 출력하세요
+--알리아스?? emp e,dept d
+
+select ename,dname from emp e,dept d
+where e.deptno=d.deptno and
+e.deptno=(select deptno from emp
+where sal=(select min(sal) from emp));
+
+--두번째로 많은 급여를 받는 사원의 이름과 급여를 출력하시오
+select ename,sal from emp
+where sal=(select max(sal) from emp
+where sal<(select max(sal) from emp));
+
+
+
+

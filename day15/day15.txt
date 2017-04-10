@@ -1,0 +1,95 @@
+1교시 
+
+--자바언어로 데이터 베이스 연동
+--오라클 , mariadb
+
+
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar
+파일 복사!!
+
+시스템 라이브러리 :
+개발자가 import 하지않더라도 시스템적으로 import 되어있는 것
+ex) JRE System Library 
+
+** 클래스 패스 등록!!
+
+오늘 날짜 폴더에 , lib 폴더 생성!! - 위에서 복사한 ojdbc6.jar 붙혀넣기 (컨트롤브이)
+그러나 도서관 표시로 나와야 classpath 표시가 된것!!
+
+Bulid path - configur bulid path - library - add library 
+- user library 선택 next - 텅 비어있으니 , user libraries 누르고
+new 생성 , 비어있다 - new Jars 하자
+
+mariadb 
+바이너리 버젼
+
+장점: 파일일뿐, 설치안해도된다
+단점: 명령어 일일이 치고들어가야 한다
+
+C:\mariadb-10.1.21-winx64\bin\mysqld 파일 열자
+아니면 쉬프트 오른쪽 여기서 창 열기
+			//최고권한자 root
+mysql -h localhost -u root -p
+패스워드 입력나오면 그냥 엔터 무시
+
+db 가 none 으로 뜬다
+db 확인해보자
+
+show databases; 
+
+db 를 새로 만들자 
+create database db0331;
+
+이제 한번 써보자!!
+use db0331;
+
+이제 만든 db 에는 아무것도 없잖아
+테이블을 만들어보자
+ create table member(
+ member_id int primary key auto_increment -- seq_ 기능부여 , 자동증가!!
+ , name varchar(20) -- varchar (varchar2 X)
+ , age int --int (number X)
+ );
+
+구조를 보자
+desc member;
+
+정보를 넣자
+insert into member(name,age) -자동으로 시퀀스 부여되면서 증가되는 기능은 돌아가니깐 시퀀스 안해도됨
+values('min',26);
+
+바이너리 버젼은 한글설정 안되어 있다..
+따라서 테이블 생성할때 맨 끝에.. 추가하자
+create table member(
+ member_id int primary key auto_increment -- seq_ 기능부여 , 자동증가!!
+ , name varchar(20) -- varchar (varchar2 X)
+ , age int --int (number X)
+ ) default charset utf8; //추가된 것
+
+
+-------------------------------------------------
+오후
+
+jar cf c:/dd.jar com/ss/driver/*
+ 
+
+-------------------------------------------------
+
+백엔드에는 고객의 정보, 수많은 로직들이
+숨어있다..
+
+개편이라는 뜻은 로직과 데이터베이스는 고정적
+DB 는 절대 변하지 않는다 = 영구적으로 보존되어야 할 영역 
+
+즉 많이 변하는 쪽은 디자인쪽 = 옷을 갈아 입는다..
+
+디자인코드와 로직코드를 같이 개발한 경우 = 옷과 내 가죽을 꼬매놓은 경우
+
+갈아입을 수 없다!!! = 유지보수성이 떨어진다.
+
+개발의 원칙 , 프로그래밍의 원칙 
+
+눈에 보이지 않는 로직과 디자인은 철저히 분리시키자
+
+개발 방법론에 의해서.. 적용시켜서 분리시킨다
+

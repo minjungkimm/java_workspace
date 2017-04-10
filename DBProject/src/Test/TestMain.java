@@ -48,7 +48,7 @@ public class TestMain {
 					System.out.println("접속성공!");
 					
 					//현재 유저가 보유한 테이블에 insert
-					String sql="insert into company(company_id,brand) values(seq_company.nextval,'나이키')";
+					String sql="insert into company(sequence_id,name,email) values(seq_company.nextval,'김동준','swatdj')";
 					//쿼리문 수행을 위해서는 쿼리문을 전담 하는
 					//객체를 이용해야 하는데, 이 객체가 바로
 					//PreparedStatement 인터에피스이다

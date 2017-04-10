@@ -45,7 +45,7 @@ public class ChatC extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -66,6 +66,7 @@ public class ChatC extends JFrame implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}	
 	

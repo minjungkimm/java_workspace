@@ -1,0 +1,27 @@
+1. 공공데이터포털에서 csv = 데이터 파일 다운로드
+2. toad 에서 다운받은 csv 파일 기반으로 테이블 생성..
+(컬럼명 넣고 테이블 생성)
+3. c드라이브에 csv, ctl 파일 넣을 <폴더>생성
+4. cmd 콘솔창에서 <폴더> 위치로 가서 sqlldr 기능 써보자
+
+
+load data
+infile '동물병원.csv'
+insert into table hospital
+fields terminated by ','
+(zipcode,sido,gugun,dong,bunji,seq)
+
+data.ctl 파일로 위 텍스트 저장 후 animal 폴더에 저장
+csv 다운로드 받은 파일도 같이 animal 폴더에 저장 후
+
+cmd <폴더>위치 에서
+
+sqlldr userid=아이디/패스워드 control='data.ctl' data='동물병원.csv'
+
+하면 오라클의 아까 생성한 테이블에 데이터가 들어가있을것이다..
+
+----------------------------------------------------
+데이터베이스 연동이니깐
+수업시간에 프로젝트 생성 시 늘
+lib 폴더 만들고 jar 파일 담고 bulid path 하기..
+

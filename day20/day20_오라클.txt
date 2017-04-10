@@ -1,0 +1,87 @@
+create table chat(
+	chat_id number primary key
+	,name varchar2(20)
+	,ip varchar2(15)
+);
+ 
+create sequence seq_chat
+increment by 1
+start with 1;
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'ÁøÈ£','211.238.142.98');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '±à¿­','211.238.142.99');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¾Æ¿µ','211.238.142.100');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¿¬½Ç','211.238.142.101');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'À¯°æ','211.238.142.102');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'Àç¹®','211.238.142.250');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'º´Èñ','211.238.142.104');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '»óµ·','211.238.142.105');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¼¼¿ø','211.238.142.106');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¼®±Ô','211.238.142.107');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¼ºÇö','211.238.142.108');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¹ÎÁ¤','211.238.142.109');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¿¹Áö','211.238.142.110');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'ÁöÇı','211.238.142.111');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'Çö¾Æ','211.238.142.112');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '»óÈÆ','211.238.142.113');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'Àç¿í','211.238.142.114');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'ÀºÈñ','211.238.142.241');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'ÇıÁö','211.238.142.116');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'Çö·É','211.238.142.117');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'Áö¹Î','211.238.142.118');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, 'ÈñÁØ','211.238.142.119');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¿À¿¬','211.238.142.120');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '´Ù¹Ì','211.238.142.121');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¼ÒÈñ','211.238.142.122');
+ 
+insert into chat(chat_id, name, ip)
+values(seq_chat.nextval, '¿µÁø','211.238.142.123');

@@ -57,8 +57,8 @@ public class MyWin extends JFrame implements ActionListener, KeyListener{
 
 	
 	public void actionPerformed(ActionEvent e) {
-		MyActionListener.setAction(this,t_input);
-	
+		MyActionListener.setAction(this,JTextField );
+		
 	}
 	
 	public static void main(String[] args) {

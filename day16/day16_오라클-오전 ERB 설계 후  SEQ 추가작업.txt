@@ -1,0 +1,11 @@
+create sequence seq_topcategory
+increment by 1
+start with 1;
+
+create sequence seq_subcategory
+increment by 1
+start with 1;
+
+create sequence seq_book
+increment by 1
+start with 1;

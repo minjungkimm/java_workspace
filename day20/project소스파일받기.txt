@@ -1,0 +1,21 @@
+project소스파일받기
+
+1. github에서 sourcetree로 프로젝트 clone
+	1.1. 윈도우 탐색기에서 eclipse workspace폴더안에 project폴더 만들기
+	1.2. sourcetree의 좌측상단의 clone/new 버튼
+	1.3. Clone Repository의 Source Path/URL에 https://github.com/shaqbari/project_crazy.git입력
+	1.4. Destination Path에 1.1.에서 만든 project폴더 선택
+	1.5. 우측하단의 clone버튼
+
+2. eclipse와 연결
+	2.1. 이클립스 좌측상단의 File -> import -> General - > ★Projects from Folder or Archive★
+		★이클립스 설정파일을 무시하도록 git를 설정했기 때문에 Existing Projects into Workspace는 안될겁니다.
+	2.2. 우측상단의 Directory -> 1.1.에서 만든 project폴더 선택 -> 우측 하단의 Finish
+
+3. eclipse 설정
+	2.1. res폴더  Source 폴더로 지정
+	2.2. lib폴더에 있는 jdbc드라이버가 있는 jar파일을 buildpath에서 user library로 등록
+
+4. res폴더에 게임에 쓸만한 캐릭터 이미지, 맵에 쓰일 sprite, 아이템 이미지, bgm, 효과음등을 찾아 복사해넣고
+source트리를 이용해 github에 올려주세요.
+ ★commit -> pull -> push순서를 지켜주세요.

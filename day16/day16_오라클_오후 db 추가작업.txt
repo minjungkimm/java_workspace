@@ -1,0 +1,49 @@
+insert into topcategory(topcategory_id,category_name)
+values(seq_topcategory.nextval,'국내도서');
+
+insert into topcategory(topcategory_id,category_name)
+values(seq_topcategory.nextval,'외국도서');
+
+select * from topcategory;
+
+--국내도서 , 소설 , 인문 , 컴퓨터 , 시
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,1,'소설');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,1,'인문');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,1,'컴퓨터');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,1,'시');
+
+select * from subcategory;
+
+commit;
+
+--에세이 잡지 종교 과학
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,2,'에세이');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,2,'잡지');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,2,'종교');
+
+insert into subcategory (subcategory_id,topcategory_id,category_name)
+values(seq_subcategory.nextval,2,'과학');
+
+select * from subcategory;
+
+commit;
+
+--하위카테고리에 존재하는 외국도서를 조회하시오.
+select * from subcategory
+where topcategory_id=(
+ select topcategory_id from topcategory
+ where category_name='외국도서'
+);
+

@@ -1,0 +1,201 @@
+SQL> --현재 계정이 어떤 테이블을 보유하고 있는지 조사
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+------------------------------------------------------------                                                                                                                                            
+MEMBER                                                                                                                                                                                                  
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+
+SQL> --테이블을 직접 생성해본다
+SQL> --DML, DDL, DCL
+SQL> --죽이고 살리고 정의는 정의어인 DDL
+SQL> --NAME, GENDER, AGE, JOB 을 넣고 반학생들 표 만들자
+SQL> --테이블을 만들 때, 컬럼(데이터)도 자료형을 지정해야한다
+SQL> create table student(
+  2  name char(6)
+  3  , gender char(2)
+  4  , age number
+  5  , job char(6)
+  6  );
+
+Table created.
+
+SQL> --특정 테이블이 어떻게 구성되어 있는지 설명해달라
+SQL> desc student;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ NAME                                                                                                                       CHAR(6)
+ GENDER                                                                                                                     CHAR(2)
+ AGE                                                                                                                        NUMBER
+ JOB                                                                                                                        CHAR(6)
+
+SQL> --만들어진 표에 데이터 1건 넣어보기
+SQL> --DML 중 insert 를 실행해보자
+SQL> insert into student(name) values('김민정');
+insert into student(name) values('김민정')
+                                 *
+ERROR at line 1:
+ORA-12899: value too large for column "BATMAN"."STUDENT"."NAME" (actual: 9, maximum: 6) 
+
+
+SQL> -- 오라클 설치 시 , utf-8이 설정되어 있으면,
+SQL> -- 한글이 2byte 가 아니라 3byte 먹는 효과가 나더라..
+SQL> -- 컬럼의 용량을 변경해보자
+SQL> -- DDL (탄생,죽음,변경) 이다
+SQL> alter table student
+  2  modify(name char(9));
+
+Table altered.
+
+SQL> insert into student(name) values('김민정');
+
+1 row created.
+
+SQL> select * from student;
+
+NAME               GEND        AGE JOB                                                                                                                                                                  
+------------------ ---- ---------- ------------                                                                                                                                                         
+김민정                                                                                                                                                                                                  
+
+SQL> --오라클이 표현 안 할뿐이지, null 이 존재한다
+SQL> --그러나 데이터는 아니다!!
+SQL> --테이블을 포기하자
+SQL> --DDL
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student(
+  2  name char(9)
+  3  ,gender char(3)
+  4  ,age number
+  5  ,job char(9)
+  6  );
+
+Table created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('최지민','남',28,'반장');
+
+1 row created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('이지혜','여',20,'부반장');
+
+1 row created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('이긍열','남',27,'없음');
+
+1 row created.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB                                                                                                                                                                
+------------------ ------ ---------- ------------------                                                                                                                                                 
+최지민             남             28 반장                                                                                                                                                               
+이지혜             여             20 부반장                                                                                                                                                             
+이긍열             남             27 없음                                                                                                                                                               
+
+SQL> -- 위 테이블은 메모리에 올라갓을 뿐, 하드디스크에는 올라가지 않았다
+SQL> --올리자
+SQL> commit;
+
+Commit complete.
+
+SQL> -- 레코드 수정 DML(데이터 조작어)
+SQL> update student set gender='여';
+
+3 rows updated.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB                                                                                                                                                                
+------------------ ------ ---------- ------------------                                                                                                                                                 
+최지민             여             28 반장                                                                                                                                                               
+이지혜             여             20 부반장                                                                                                                                                             
+이긍열             여             27 없음                                                                                                                                                               
+
+SQL> -- 다시 옛날로 돌아가는 기능!!
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB                                                                                                                                                                
+------------------ ------ ---------- ------------------                                                                                                                                                 
+최지민             남             28 반장                                                                                                                                                               
+이지혜             여             20 부반장                                                                                                                                                             
+이긍열             남             27 없음                                                                                                                                                               
+
+SQL> -- 결국 조건을 주지 않으면, 모든 레코드가 수정이 발생한다
+SQL> update student set gender='여'
+  2  where name='이긍열';
+
+1 row updated.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB                                                                                                                                                                
+------------------ ------ ---------- ------------------                                                                                                                                                 
+최지민             남             28 반장                                                                                                                                                               
+이지혜             여             20 부반장                                                                                                                                                             
+이긍열             여             27 없음                                                                                                                                                               
+
+SQL> insert into student(name,gender,age,job)
+  2  values('이긍열','여','27','없음');
+
+1 row created.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB                                                                                                                                                                
+------------------ ------ ---------- ------------------                                                                                                                                                 
+최지민             남             28 반장                                                                                                                                                               
+이지혜             여             20 부반장                                                                                                                                                             
+이긍열             여             27 없음                                                                                                                                                               
+이긍열             여             27 없음                                                                                                                                                               
+
+SQL> -- 동일한 데이터는 지적할 수 없다!! 오늘 오라클 수업의 주제!!**
+SQL> -- 앞으로 테이블을 만들 때 중복가능성을 염두해놓고 만들자
+SQL> -- id마저도 동일하다면? 동일하지 않게 해야지!!!
+SQL> -- 유효하지 않은 데이터가 들어올 경우, 테이블에 제한을 걸어야 한다.. 필터장착
+SQL> -- 중복되지 않은 유효한 데이터만을 걸러내기 위해
+SQL> -- DBMS 에서는 테이블 생성 시 사용할 수 있는 제약
+SQL> -- 조건을 지원한다...
+SQL> -- 중복을 방지 하기 위한 제약조건 사용해보기
+SQL> -- unique
+SQL> create table uniquetest(
+  2  name char(9)
+  3  //
+  4  //
+  5  ;
+//
+*
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table uniquetest(
+  2  name char(9) unique
+  3  , age number
+  4  );
+
+Table created.
+
+SQL> -- unique 스스로 감시하고 제약하겠어!!
+SQL> insert into uniquetest(name,age)
+  2  values('이긍열',27);
+
+1 row created.
+
+SQL> /
+insert into uniquetest(name,age)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (BATMAN.SYS_C006999) violated 
+
+
+SQL> spool off

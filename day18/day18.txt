@@ -1,0 +1,136 @@
+DTO(데이터 전달 객체)
+VO(값을 보유한 객체)
+지금까지는 주로 배열에 데이터를 담아서 처리했지만, 객체지향적이라면
+하나의 사물을 담을 때 기왕이면 객체 이용하자!!
+제작법-은닉화, 로직X
+----------------------------------------------------
+byte[] b = new byte[5];
+
+read(); 1byte
+
+----------------------------------------------------
+싱글턴 - GOF(gang) 애칭
+
+공공데이터시스템 이용-데이터
+---------------------------------------------------
+공공데이터 포털 접속 - 일반 및 휴게음식점 현황
+- 선택 - 들어가면 csv 옆 체크박스 선택 후 선택 다운로드
+
+CSV 컴마로 구분된 값을 담는 파일
+(Comma Seperated Value) 
+
+
+-----------------------------------------
+우편번화 같은 대량의 데이터를
+나의 데이터베이스에 일괄등록하는 법
+편하게 하기 : 상용 툴에서 이미 제공
+불편하게 하기 : 개발자가 직접 만들거나
+	sqlplus 에 이미 대량 
+	등록이 지원됨
+	GUI 그래픽 유저 인터페이스 <-> CLI 커맨드 라인 인터페이스(명령어기반)
+
+--외부 파일 읽어들여 데이터로 받아들이기
+프로그램 만들어보자
+한줄씩 읽어들여서 테이블로 표현
+메인쓰레드/서브쓰레드(파일읽고 뿌리는작업)
+하나의 셀씩 데이터 수정 가능하게 하기
+삭제기능을 두어 선택한 영역 삭제버튼 누르면 삭제가능하게
+
+요즘은 전자정부3.0를 통해
+오픈API 많이 제공됨
+
+XML - SAM
+          DOM 
+
+위 확장자 말고
+
+동물병원 현황 검색해서 CSV 로 다운로드
+
+동물병원 현황 파일열고 컬럼명 전부 한글에서 -> 영어로 바꿔주기
+ 
+C 드라이브에 animal 폴더 생성 하자
+
+동물병원 파일을 바탕으로 
+
+toad 에 와서 테이블 생성해보자
+
+create table hospital(
+	seq number primary key
+	,name varchar2(50)
+	,addr varchar2(150)
+	,regdate char(8)
+	,status varchar2(20)
+	,dimension number
+	,type varchar2(20)	
+);	
+
+오라클 창에서
+
+C 드라이브의 animal 폴더로 가자
+오라클 설치하면 , SQLPlus 뿐만 아니라,
+각종 프로그램 설치된다
+SQLLDR (SQL Loader의 약자)
+
+오라클창에서 로더가 되는지 확인하자
+
+sqlldr 입력 엔터
+
+2.컨트롤 파일을 아래와 같이 작성 한 후,  원하는 폴더에 파일명은 POST.CTL 저장한다.
+
+load data
+infile '동물병원.csv'
+insert into table hospital
+fields terminated by ','
+(zipcode,sido,gugun,dong,bunji,seq)
+
+깨끗한 메모장에다가 넣자..
+
+확장자 - 모든파일 
+파일명 - data.ctl
+
+animal 에 2개의 파일 존재!!
+
+csv - 실제 데이터베이스
+ctl - 컨트롤파일
+
+3. DOS 콘솔에서 SQLLDR 명령어로 SQL로더 프로그램을 수행시킨다.
+
+SQLLDR USERID=아이디/패스 CONTROL='POST.CTL' DATA='POST.CSV'
+
+sqlldr userid=batman/1234 control='data.ctl' data='동물병원.csv'
+					
+//숙제 자바스크립트 에서의 removeChild 와같은 기능을 찾자..
+
+*데이터베이스 연동이니깐
+수업시간에 프로젝트 생성 시 늘
+lib 폴더 만들고 jar 파일 담고 bulid path 하기..
+
+--------------------------------------------------
+
+alter table hospital
+drop column seq;
+
+alter table hospital
+add seq number;
+
+//alter 는 데이터가 아니라서, commit 대상이 아니다
+
+---------------------------------------------------
+바이너리 .class 모음
+소스 .java (원본소스) 모음
+
+http://apache.org 에서 다운로드 - stable 버젼 - 바이너리 버젼
+
+맨위 http 위에 주소 클릭
+
+다운로드 후 압축파일 푼 후에 안에있는 jar 파일들
+오늘 프로젝트 lib 에 추가 후 bulid path 추가하기
+
+API 문서는 프로그램사에 있다.
+POI 다시 들어가서
+아파치 홈페이지 javadocs 클릭하면 열린다.
+
+워크북 : 엑셀파일 을 의미
+
+
+

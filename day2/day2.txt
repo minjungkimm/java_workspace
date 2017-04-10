@@ -1,0 +1,179 @@
+﻿java SE
+java EE
+java ME
+----------------------------------------------
+Write once Run Anywhere?
+-맹점:반드시 JVM을 설치해야함!
+----------------------------------------------
+JDK(자바 개발환경=Java Development Environment)
+JRE(자바 실행환경=Java Runtime Environment)
+----------------------------------------------
+개발에 필요한 환경설정
+환경변수:OS사용할 동안 계속 참조할 수 있는 변수
+babo, java_home, catalina_home
+echo 문자를 사용시 자체 출력..
+     %문자% 퍼센트로 감싸면, 문자가 아니라 환경변수로 생각한다.
+-----------------------------------------------------------------------
+-java.exe, .class 
+-javac.exe파일 -설치루트의 bin에 들어있음/
+-----------------------------------------------------------------------
+기본 자료형
+1.문자 char 2 2의 16승까지 표현.-유니코드까지 지원한다.-모든 언어 지원.
+  *사실상 자바를 포함한 응용프로그램에서 문자란 존재하지 않는다..
+   왜? char c='A'; ->어차피 숫자로 바꿔서 인식.
+2.숫자
+ 정수	byte 1< short2 < int4< long8
+ 실수	float4 < double8
+3.논리값 boolean 1
+*공식 이해하기:범위 (-2의 (n-1)승< <(2의 (n-1)승) -1
+--------------------------------------------------------------------------
+형변환 : 작은 자료형에 큰 자료형의 데이터를 대입하고자 할때, 데이터의 손실이 예상될 수 있으므로
+	  컴파일러에게 감안하겠다는 의사표현
+
+jvm의 메모리 구조
+
+static / method
+클래스원본코드 or static 데이터
+//클래스의 변수들은 (=인스턴스변수,멤버변수)
+
+stack
+모든지역 변수
+
+heap
+객체
+
+#자바나 씨샵에서는 전역변수 존재하지 않아서, 대신 static 변수를 사용 !!!!!
+#non-static 영역 - static 외에 영역들 ...
+#멤버변수=필드
+
+자바 수업 끝
+--------------------------------------------------------------------------
+
+mariadb 수업
+
+C:\mariadb-10.1.21-winx64\bin
+폴더에 하얀곳에 shift 누르고 오른쪽 마우스 클릭 후
+/이곳에서 명령창 열기/
+
+mysql -h localhost -u root -p
+
+show databases;
+
+use java;
+
+column < record < table < DB(DataBase) < server
+
+*집계함수
+
+avg : 평균
+sum : 합
+
+select avg(sal) from emp; 사원들의 월급 평균
+select sum(sal) from emp; 사원들의 월급 합
+select count(*) from emp; 사원들의 총 수
+select max(sal) from emp; 사원들 급여의 최대값
+select min(sal) from emp; 사원들 급여의 최소값
+
+select sum(sal) as 급여합 from emp; 급여합으로 항목이름을 바꿔준다
+
+select avg(sal) from emp; 사원들의 월급 평균
+	,sum(sal) from emp; 사원들의 월급 합
+	,count(*) from emp; 사원들의 총 수
+	,max(sal) from emp; 사원들 급여의 최대값
+	,min(sal) from emp; 사원들 급여의 최소값
+
+	asc 오름차순
+	desc 내림차순
+	
+	select * from emp order by sal desc;
+	select * from emp order by sal desc;
+	
+	최소급여를 받는 사원의 이름과 급여를 출력하세요
+	select ename, sal from emp 
+	where sal=(select min(sal) from emp);
+	
+	그룹화 시키기
+	group by
+
+	select deptno from emp group by deptno;
+	
+-----------------------------------------------------------------------
+
+oracle 수업
+
+sqlplus sys/as sysdba
+
+show user
+
+--system 계정에게 비밀번호를 다시 부여하자
+alter user system
+identified by manager;
+
+conn system/manager
+
+#딕셔너리 
+- 시스템 테이블
+  일반유저 - user_
+  관리자- dba_ 
+
+--현재 오라클 서버에 존재하는 유저목록 보기
+select username from dba_users;
+
+--배트맨 계정으로 접속해보자
+conn batman/1234
+
+select table_name from user_tables;
+테이블_이름이 쭈루룩 뜬다
+
+select * from emp;
+
+set line 150
+/
+
+--페이지를 조정하자 1페이지당 20개의 레코드로..
+set pagesize 20 
+//이거는 쿼리문 아니고 툴의 명령어..
+
+select count(*), ename, deptno
+from emp
+group by deptno
+
+--group by 사용시 팁!!
+--원칙: group by 에 명시한 컬럼만이
+	select 대상이 된다..
+--예외: 단, 집계함수는 이미 그룹화된 결과를
+	다루기 때문에..
+	group by에 명시하지 않아도 됨..
+
+select count(*), hiredate
+from emp
+group by deptno, hiredate
+
+select sum(sal) from emp
+where ename like '%A%' //중간에 A라는 글자가 있는
+//where ename like 'A' //A로 시작하는
+//where ename like '%A' //A로 끝나는
+
+--이름에 A자가 들어가는 사원들중 최대급여를 받는
+--사원의 이름, 급여를 출력하시오.
+select ename, sal from emp
+where sal=(select max(sal) from emp where ename like '%A%')
+
+
+--이름에 A자가 들어가는 사원이 근무하는 부서의
+--평균급여보다 적은 급여를 받는 사원의 이름, 급여를 출력
+//숙제!!!!!!!!!!!!!
+select ename, sal from emp
+where sal<(select avg(sal) from emp where ename like '%A%')
+/
+
+--부서별 급여의 합중 최대급여인 부서번호, 급여합
+--을 출력하시오.
+//숙제!!!!!!!!!!!!!
+
+select sum(sal) from count deptno
+
+select deptno,sum(sal) from emp
+where sal=(select max(sal) from sum(sal) group by deptno)
+
+

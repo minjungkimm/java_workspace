@@ -1,0 +1,6 @@
+package art;
+
+class Color{
+	
+
+}

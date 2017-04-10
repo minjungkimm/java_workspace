@@ -1,0 +1,208 @@
+---------------------복습----------------------------------
+자료형의 변환 = 형변환
+
+#자바의 기본 자료형 종류
+문자
+숫자
+논리값
+(자바에서는 논리값은 숫자로 대체될 수 없다)
+
+따라서 형변환과 상관없는 자료형이다!!
+*문자는 존재하지 않는다!!
+태생자체가 전기신호라서 1,0만을 이해하기 때문에..
+
+형변환이 발생하는 이유는?
+byte b=3;
+int a=7;
+
+a=b;
+대입연산자를 사이에 두고 서로 자료형이 같아야함...
+같지않아 연산이 불가하다..
+
+연산대상(피연산자)의 자료형이 같지않으면 
+연산을 수행할 수 없기 때문에...!!
+
+b=a;
+*데이터의 손실이 발생하는경우!!!
+이렇게 바꿔줍니다...!!
+b=(byte)a; //cast 연산자(소괄호안에를칭하는)
+
+------------------------------------------------------------
+
+32 bit
+int a=3;
+byte b=34;
+
+a+b
+int 형보다 작은 자료형의 연산은 내부적으로
+int 형으로 형변환 시켜서 연산을 수행한다.
+
+왜??!! cpu라는 하드웨어가 
+32비트에 최적화 되어있으므로..
+
+byte short int long
+1	2	4	8
+
+------------------------------------------------------------
+
+JVM 메모리 구조
+
+***this 란?
+인스턴스 내에서 나 자신을 지칭하는 레퍼런스 변수!!!!
+
+static/method
+
+클래스의 원본코드
+**(.class 파일자체가 아니라 해석본이 올라오는 것이다!!)
+
+*멤버는 클래스안에 들어있는 모든 객체?
+*멤버중에서도 옮겨가지 않는 애들 /*클래스 변수, 메서드*/
+*자바는 전역변수 지원되지 않아, static 으로..
+
+stack
+
+(일반적인 컴퓨터 용어, 자바언어아니야!!!)
+
+ex)프링글스통,테니스공통,동전쌓아두는통
+
+지역변수
+
+heap
+
+인스턴스(객체)
+
+-----------------------------복습끝-----------------------------
+
+문제풀이 클래스 기초 9번부터
+
+default 값 숫자일 경우 0
+	   논리값일 경우 false
+
+초기화 : 처음 선언할 때 할당한 값
+
+멤버변수에 대해서는 컴파일러가 반영한다
+
+지역변수는 초기화하지 않아도 에러는 나지않지만,
+사용할 때 에러가 난다 그러므로 반드시 초기화 해야한다!!
+
+멤버변수는 초기화 할 필요 없다
+인스턴스를 찍어내면서 각각 변수를 가질거라서..
+
+멤버변수는 자동으로 초기화 해준다.
+
+class Product {
+	
+	int price; //(가) //0에서 300으로 바뀜
+	
+	public void setPrice(int p){
+		p=500; //(라)
+		price = p;
+	}
+		
+	public static void main(String[] args) {
+		int price=300; //(나)
+		//**일반데이터 갖고있는 값과 동일하게 올라간다!!!!
+		//**프라이스가 갖고있는 값 그대로..
+		Product p = new Product();
+		p.setPrice(price); //(다)
+		//**여기에있는 price 에는 300 값 그대로
+		//=> call by value!!!!!!! 라고 부른다
+		System.out.println(price); //(마) //300출력//클래스변수
+		System.out.println(p.price); //(바)//p(객체).price//인스턴스변수
+	}
+}
+
+#call by value : 일반데이터가 가진 값을 출력한다 , 메서드에 의한 값을 호출
+
+1.기본 자료형
+	-기본 자료형을 메서드의 인수로 넘길 때는
+	 호출 시 똑같은 값이 복사되어, 값만 넘어간다
+	 따라서 해당 값을 보유한 변수는 영향을
+	 안받는다!! (call by value) 값만 넘어간다..
+
+2.객체 자료형
+	-메서드 호출시 인수로 넘길 데이터가 객체형일 경우
+	그 주소값이 넘어가므로, 해당 객체는
+	영향을 받는다!! (call by reference)
+
+#생성자메서드 : new 연산자 뒤에오는 클래스와 이름이 일치하는 메서드
+
+#참조 타입 =객체자료형
+
+override 100%는 모든게 일치
+overloading 메서드 이름만 일치 (반환형 상관x)
+
+-----------------------------------------------------------------------
+오라클 수업
+
+숙제
+
+1.이름이 k로 끝나는 사원이 근무하는
+부서의 평균 급여보다 적은 급여를 받는
+사원의 이름, 급여를 출력하시오.
+
+select ename, sal from emp
+where sal<(select avg(sal) from emp 
+where deptno=(select deptno from emp 
+where ename like '%k'))
+
+2.부서별 급여의 합 중 그 값이 최대인 
+부서의 부서번호, 급여의 합을 출력하시오.
+
+select deptno, sum(sal) from emp
+group by deptno
+
+group by 에 명시한 컬럼만이 올수있고
+집계함수는 올수없다..
+
+select * from (
+select deptno,sum(sal) from emp
+group by deptno
+)
+/ 표와 같이 취급하여 뿌려봄
+
+SQL> select max(total) from (
+  2  select deptno,sum(sal) as total from emp
+  3  group by deptno
+  4  )
+  5  /
+
+MAX(TOTAL)
+----------
+     10875
+
+
+우리가 쿼리문으로 불러내는 것은 존재하지 않는 가상의 테이블
+이것을 물리적으로 남기는 법은 뷰 이다!!!
+
+-- select 문의 결과를 물리적인 형태로 저장도 가능
+-- 하다. 이러한 기술을 뷰라고 한다..
+
+conn system/manager
+
+-- 뷰 능력도 주자
+
+SQL> -- 권한주는 DCL 명령어
+SQL> grant create view to batman;
+
+Grant succeeded.
+
+conn batman/1234
+
+SQL> create view myview
+  2  as
+  3  select deptno,sum(sal) as total from emp
+  4  group by deptno;
+
+View created.
+
+SQL> select * from myview
+  2  where total=(select max(total) from myview);
+
+    DEPTNO      TOTAL
+---------- ----------
+        20      10875
+
+from
+where
+group by 

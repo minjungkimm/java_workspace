@@ -16,7 +16,7 @@ public class ButtonCreator extends JFrame implements ActionListener{
 	JButton bt_create, bt_color;
 	int count=0;
 	
-	ArrayList<String>list=new ArrayList(); //얘 완전 배열!! 크기를 명시하지 않아도 되고, 객체만을 다룸
+	ArrayList list=new ArrayList(); //얘 완전 배열!! 크기를 명시하지 않아도 되고, 객체만을 다룸
 	/*
 	 * 지금까지 사용해왔던 배열은 대량의 데이터를
 	 * 순서있게 처리함에 있어서 엄청난 이득을 줘왔다..
@@ -105,7 +105,7 @@ public class ButtonCreator extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	
+		// TODO Auto-generated method stub
 		
 	}
 

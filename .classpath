@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="BreadProject/src/|LoadProject/src/|EchoFinish/src/|project0331/src/|project0322/src/|project0328/src/|EchoProject/src/|DBProject2/src/|MultiChat/src/|DBProject/src/|project0330/src/|project0323/src/|project0327/src/|project0329/src/" kind="src" path=""/>
+	<classpathentry kind="src" path="BreadProject/src"/>
+	<classpathentry kind="src" path="DBProject/src"/>
+	<classpathentry kind="src" path="DBProject2/src"/>
+	<classpathentry kind="src" path="EchoFinish/src"/>
+	<classpathentry kind="src" path="EchoProject/src"/>
+	<classpathentry kind="src" path="LoadProject/src"/>
+	<classpathentry kind="src" path="MultiChat/src"/>
+	<classpathentry kind="src" path="project0322/src"/>
+	<classpathentry kind="src" path="project0323/src"/>
+	<classpathentry kind="src" path="project0327/src"/>
+	<classpathentry kind="src" path="project0328/src"/>
+	<classpathentry kind="src" path="project0329/src"/>
+	<classpathentry kind="src" path="project0330/src"/>
+	<classpathentry kind="src" path="project0331/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="project0322/bin"/>
+</classpath>

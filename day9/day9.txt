@@ -1,0 +1,329 @@
+﻿어댑터
+- 이벤트 구현시 사용되는 인터페이스의 추상메서드 수가
+너무 많으면, 사용되지도 않는 메서드를 굳이 코드에
+둘 필요가 있을까? 비효율적이다..
+
+해결책) 어댑터라는 클래스를 지원하고 있다.
+개발자 대신 미리 추상메서드들을 구현해놓은 객체!!
+를 가리킨다.
+
+주의) 어댑터의 자료형은? implements 관계에
+있으므로 "리스너" 이다.
+addKeyListener(어댑터를 넣어도 무리없음);
+
+--------------------------------------------------
+내부익명 클래스
+- 자바 클래스 정의 목적은 코드의 재사용성에 있으므로,
+재사용성이 떨어지는 클래스의 경우, 굳이 .java 파일형태로
+생성할 필요가 있을까?
+
+해결책) 물리적인 .java 파일형태가 아닌, 클래스의 코드
+자체(브레이스영역)를 현재 개발중인 클래스의 코드에
+통째로 넣을 수 있도록 허용해준 기법!!
+
+얻는것) 클래스가 분리되지 않기 때문에, 객체의 레퍼런스를
+넘겨받거나 하는 불편함이 없다.
+내부익명 클래스는 자신을 포함하는 외부 클래스의 멤버들을
+공유할 수 있다!!
+
+주의) 만일 지역변수를 접근하고자 하면, final 로 선언해야 한다.
+또 주의) final 이기 때문에 값을 참조만 할 수 있고, 변경불가
+멤버만 쓰세요~ 간접적 압박
+
+실험결론) 내부익명 클래스도 사실 클래스 이기 때문에
+실행되기 위해서는 얘 마저도 .class 형태로 존재해야한다!!
+이 때 개발자가 이름을 부여한 적이 없기 때문에..
+외부클래스명$순번.class <- 로 파일명이 부여되었다..
+
+----------------------------------------------------
+컬렉션 프레임웍 (collection framework)
+: 다수의 데이터를 쉽게 처리할 수 있는 방법을 제공하는 클래스들의 모임
+//컬렉션: 다수의 데이터, 프레임웍: 표준화된 프로그래밍 방식
+collection : 모아놓은 것
+frame : 업무의 기준 
+work : 업무
+업무를 보기전에 미리 진행할 형식
+장점 : 시간을 절약, 미리 짜놓은 틀을 사용하여
+단점 : 틀을 짜놓아야 한다.
+
+- 데이터를 모아서 처리하는데 유용한 객체들을 모아놓은
+라이브러리를 일컫는다!!
+-객체+객체=객체집합 (ex. 책+책=도서관)
+-java.util 패키지에서 지원한다.
+
+주의)컬렉션 프레임웍의 대상은??
+오직 객체만을 대상으로 함
+대량의 데이터를 처리하는 것은 "배열"
+대량의 객체를 처리하는 것은 "컬렉션 프레임웍"
+
+- 접근법
+1. 순서있는 객체의 집합 형태 (list 유형)
+ ArrayList, Vection, Stack..
+
+2. 순서없는 객체의 집합 형태 (set 유형)
+ HashMap, TreeSet..
+3. 특히 순서없는 집합 형태 중 key-value 의 형태로 되어있는
+집합 형태를 가리켜 (Map유형)
+
+상황에 따라 어느것이 제일 좋은지는 다르다..
+
+
+---------------------------------------------------
+1교시
+
+Vector(int initialCapacity) - 초기크기를 뜻함
+
+쉬프트+F2
+
+백터에 담거나, 리스트에 담는 것의 제한은 없다!!
+
+public boolean add(E e) -e는 존재하지 않는다, 
+				element 요소의 "용도"로 쓰이다는 것을 강조하기 위함
+
+Appends the specified element to the end of this Vector.
+
+Returns:true (as specified by Collection.add(E))
+
+
+Iterator<E>	iterator()
+Returns an iterator over the elements in this set in ascending order.
+
+boolean	hasNext() 뭐가 있는지 없는지 확인
+Returns true if the iteration has more elements.
+
+E	next() 다음요소로 접근 할수있게
+Returns the next element in the iteration.
+
+keySet 
+
+public Set<K> keySet()
+Returns a Set view of the keys contained in this map. The set is backed by the map, so changes to the map are reflected in the set, and vice-versa. If the map is modified while an iteration over the set is in progress (except through the iterator's own remove operation), the results of the iteration are undefined. The set supports element removal, which removes the corresponding mapping from the map, via the Iterator.remove, Set.remove, removeAll, retainAll, and clear operations. It does not support the add or addAll operations.
+Specified by:
+keySet in interface Map<K,V>
+Overrides:
+keySet in class AbstractMap<K,V>
+Returns:
+a set view of the keys contained in this map
+
+---------------------------------------------------------------
+
+자바의 그래픽 처리
+
+그림을 주체가 필요하다
+현실에서의 그래픽 주체는? 화가!
+	화가는 도구를 이용해서 그린다 팔레트, 붓
+	캔버스에!!
+	그리는 행위를 표현!!
+
+자바에서의 그래픽 주체는? 모든 컴포넌트는 자기 자신을 그린다!
+	자기 자신을 그리는 도구는? 함수 , 행위니깐
+	그리는 함수를 표현!! 붓 = paint , 
+	자기자신에!! 자신을!!
+	팔레트(그래픽에서는 색뿐만 아니라 더 많이 관여) 
+	붓과 팔레트가 동시에 들어온다 인수로!!..
+	
+
+-----------------------------------------------------------------
+
+api 반환형 / 메서드 
+
+parent : 디자인에서 바깥쪽 컴포넌트 가리킴
+
+버튼 누르면 - 윈도우 - JVM (는 액션이벤트객체를 메모리에 올린다.)
+
+e 는 액션의 수많은 이벤트 객체
+
+------------------------------------------------------------------
+우려의 메세지 
+
+FileCopy.java:29: error: unreported exception FileNotFoundException; must be caught or declared to be thrown
+
+------------------------------------------------------------------
+
+마지막 교시 수업 - 오라클 
+
+SQL> spool C:\Java_workspace\day9\오라클.txt
+SQL> --현재 계정이 어떤 테이블을 보유하고 있는지 조사
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+------------------------------------------------------------
+MEMBER
+DEPT
+EMP
+
+SQL>--테이블을 직접 생성해본다
+SQL> --DML, DDL, DCL
+SQL> --죽이고 살리고 정의는 정의어인 DDL
+SQL> --NAME, GENDER, AGE, JOB 을 넣고 반학생들 표 만들자
+SQL> --테이블을 만들 때, 컬럼(데이터)도 자료형을 지정해야한다
+SQL> create table student(
+  2  name char(6) //한글자에 2byte 니깐.. 3글자는
+  3  , gender char(2) //남여
+  4  , age number //마리아디비는 int 쓴다
+  5  , job char(6) 
+  6  );
+
+Table created.
+
+SQL> --특정 테이블이 어떻게 구성되어 있는지 설명해달라
+SQL> desc student;
+
+ SQL> --만들어진 표에 데이터 1건 넣어보기
+SQL> --DML 중 insert 를 실행해보자
+SQL> insert into student(name) values('김민정');
+insert into student(name) values('김민정')
+                                 *
+ERROR at line 1:
+ORA-12899: value too large for column "BATMAN"."STUDENT"."NAME" (actual: 9, maximum: 6)
+
+
+SQL> -- 오라클 설치 시 , utf-8이 설정되어 있으면,
+SQL> -- 한글이 2byte 가 아니라 3byte 먹는 효과가 나더라..
+SQL> -- 컬럼의 용량을 변경해보자
+SQL> -- DDL (탄생,죽음,변경) 이다
+SQL> alter table student
+  2  modify(name char(9));
+
+Table altered.
+
+SQL> insert into student(name) values('김민정');
+
+1 row created.
+
+SQL> select * from student;
+
+NAME               GEND        AGE JOB
+------------------ ---- ---------- ------------
+김민정
+
+SQL> --오라클이 표현 안 할뿐이지, null 이 존재한다
+SQL> --그러나 데이터는 아니다!!
+SQL> --테이블을 포기하자
+SQL> --DDL
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student(
+  2  name char(9)
+  3  ,gender char(3)
+  4  ,age number
+  5  ,job char(9)
+  6  );
+
+Table created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('최지민','남',28,'반장');
+
+1 row created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('이지혜','여',20,'부반장');
+
+1 row created.
+
+SQL> insert into student(name,gender,age,job)
+  2  values('이긍열','남',27,'없음');
+
+1 row created.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB
+------------------ ------ ---------- ------------------
+최지민             남             28 반장
+이지혜             여             20 부반장
+이긍열             남             27 없음
+
+SQL> -- 위 테이블은 메모리에 올라갓을 뿐, 하드디스크에는 올라가지 않았다
+SQL> -- 올리자
+SQL> commit;
+
+Commit complete.
+
+SQL> -- 레코드 수정 DML(데이터 조작어)
+SQL> update student set gender='여';
+
+3 rows updated.
+
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB
+------------------ ------ ---------- ------------------
+최지민             여             28 반장
+이지혜             여             20 부반장
+이긍열             여             27 없음
+
+SQL> -- 다시 옛날로 돌아가는 기능!!
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB
+------------------ ------ ---------- ------------------
+최지민             남             28 반장
+이지혜             여             20 부반장
+이긍열             남             27 없음
+
+SQL> -- 결국 조건을 주지 않으면, 모든 레코드가 수정이 발생한다
+SQL> update student set gender='여'
+  2  where name='이긍열';
+
+1 row updated.
+
+SQL> select * from student;
+
+NAME               GENDER        AGE JOB
+------------------ ------ ---------- ------------------
+최지민             남             28 반장
+이지혜             여             20 부반장
+이긍열             여             27 없음
+
+SQL> -- 동일한 데이터는 지적할 수 없다!! 오늘 오라클 수업의 주제!!**
+SQL> -- 앞으로 테이블을 만들 때 중복가능성을 염두해놓고 만들자
+SQL> -- id마저도 동일하다면? 동일하지 않게 해야지!!!
+SQL> -- 유효하지 않은 데이터가 들어올 경우, 테이블에 제한을 걸어야 한다.. 필터장착
+SQL> -- 중복되지 않은 유효한 데이터만을 걸러내기 위해
+SQL> -- DBMS 에서는 테이블 생성 시 사용할 수 있는 제약
+SQL> -- 조건을 지원한다...
+SQL> -- 중복을 방지 하기 위한 제약조건 사용해보기
+SQL> -- unique
+SQL> create table uniquetest(
+  2  name char(9)
+  3  //
+  4  //
+  5  ;
+//
+*
+ERROR at line 3:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table uniquetest(
+  2  name char(9) unique
+  3  , age number
+  4  );
+
+Table created.
+
+SQL> -- unique 스스로 감시하고 제약하겠어!!
+SQL> insert into uniquetest(name,age)
+  2  values('이긍열',27);
+
+1 row created.
+
+SQL> /
+insert into uniquetest(name,age)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (BATMAN.SYS_C006999) violated
+
+
+
+
+
