@@ -1,0 +1,184 @@
+에코시스템
+유니캐스팅
+--------- 여기까지했었고 , 오늘은 멀티까지 완료
+멀티캐스팅
+
+MultiChat 프로젝트 생성
+
+telnet 211.238.142.109 7777
+
+
+--------------------------------------------------
+오전 마지막 교시
+
+게임실습 - 객체지향에 대해
+
+[상위 카테고리] [하위 카테고리]
+1.케익            1-1.생크림 1-2.고구마 1-3.치즈 1-4.초코
+2.빵	     2-1.슈크림 2-2.피자빵 2-3.소보로 2-4.멜론빵
+3.제과	     3-1.초코쿠키 3-2.딸기쿠기 3-3.바닐라쿠키 3-4.양갱쿠키
+4.샐러드	     4-1.치킨샐러드 4-2.시저샐러드 4-3.연어샐러드 4-4.리코타치즈샐러드
+
+--새로운 프로젝트 생성할 때마다 새로운 db와 새로운 계정 부여해주자
+sqlplus system/manager
+
+--C:\oraclexe\app\oracle\oradata\XE
+--앞으로 우리가 db를 누적할 디렉토리
+
+SQL> create tablespace bread
+  2  datafile 'C:\oraclexe\app\oracle\oradata\XE\bread.dbf' size 3m;
+
+--저장할 디렉토리 지정, 사이즈까지 지정하여서 테이블 만들었다.
+
+--유저를 만들자
+
+QL> create user bread
+ 2  identified by bread
+ 3  default tablespace bread
+--브레드에 만들자 계정을
+ 4  quota unlimited on bread;
+--용량에 제한두지 말고 브레드 안에 만들자
+
+User created.
+
+--계정 생성 완료
+
+--권한주기
+SQL> grant create table,
+  2  create session,
+  3  create sequence
+  4  to bread;
+
+--브레드에게 권한들을 주었다
+
+--toad 에서 disconnect 한 뒤 bread 로 계정 변경
+
+package explorer 창에대고 new - other
+ERM MASTER 클릭 - name : erb , 오늘 만든 프로젝트에 넣기
+- 데이터베이스 오라클 선택 - finish
+
+-- 프로젝트 생성하여 거기로 옮기자 , BreadProject 생성
+--지금 만든 erb 옮기기!!
+
+--테이블 추가
+물리명
+topCategory
+--주고, 간편등록으로
+논리/물리 topcategory_id 형식 number
+논리/물리 top_name 형식 varchar 길이 20
+
+--topcategory_id 에 primary key 넣고 , 형식 다시 넣어주기 (초기화되서)
+
+//auto 어쩌고 , 오라클은 seq 있어서 안넣음
+
+물리명
+subCategory
+
+위와 동일하게 넣고
+sub_name 길이 30으로만 ..
+
+--부모와 자식 관계 만들기 1:N 관계 클릭하여 top(부모) - sub(자식) 찍기
+
+--------------------------------------------------------------
+상품 테이블
+
+하위카테고리 / 상품명  		/ 가격  / 이미지
+자동으로 들어감 / product_name / price / img
+
+--테이블 작성
+product_id - primary key 줌, 편집 기본값 0 number
+product_name varchar2 40
+price 편집 기본값 0 number
+img 50 varchar2 다 넣었음
+
+--subcategory 의 자식으로 1:N 관계준다
+
+--------------------------------------------------------------
+
+--오늘 만든 테이블들 , 시퀀스 생성하기
+
+create sequence seq_product
+increment by 1
+start with 1;
+
+create sequence seq_topcategory
+increment by 1
+start with 1;
+
+create sequence seq_subcategory
+increment by 1
+start with 1;
+
+
+----------------------------------------------------------------
+--데이터 넣자
+
+--상위 
+insert into topcategory(topcategory_id,top_name)
+values(seq_topcategory.nextval,'케익');
+
+insert into topcategory(topcategory_id,top_name)
+values(seq_topcategory.nextval,'빵');
+
+insert into topcategory(topcategory_id,top_name)
+values(seq_topcategory.nextval,'제과');
+
+insert into topcategory(topcategory_id,top_name)
+values(seq_topcategory.nextval,'샐러드');
+
+--하위
+
+-----1-----
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'생크림','1');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'고구마','1');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'치즈','1');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'초코','1');
+
+-----2-----
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'슈크림','2');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'피자빵','2');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'소보로','2');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'멜론빵','2');
+
+-----3-----
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'초코쿠키','3');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'딸기쿠키','3');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'바닐라쿠키','3');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'양갱쿠키','3');
+
+-----4-----
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'치킨샐러드','4');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'시저샐러드','4');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'연어샐러드','4');
+
+insert into subcategory(subcategory_id,sub_name,topcategory_id)
+values(seq_subcategory.nextval,'리코타치즈샐러드','4');
+
+commit;
+
