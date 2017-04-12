@@ -1,0 +1,98 @@
+join 이란?
+- 정규화에 분리된 테이블을 
+마치 하나처럼 보여주는 쿼리
+
+inner join 
+- 조인대상이 되는 테이블에 공통된 
+  레코드만 가져온다.
+outer join 
+- 조인 쿼리수행 시, 반드시 모두
+가져올 레코드를 보유한 테이블을
+명시할 수 있어, 공통되지 않은 레코드도
+가져 올 수 있다.(조회 가능)
+
+---------------------------------------
+
+API - JTree 검색 - JTree How to use?
+
+상하위 구조시 사용하기 적합..
+
+수업주제 : JTree 관련 실습
+
+DefaultMutableTreeNode top =
+        new DefaultMutableTreeNode("The Java Series");
+
+createNodes(top); --이 메서드 통해서 자식 만들어보자
+    tree = new JTree(top);
+
+---------여기까지 하면 상위폴더 하나만 생김(하위가 없는)------
+root = new DefaultMutableTreeNode("내컴퓨터");
+//최상위 노드인 내컴퓨터 생성
+File[] drive = File.listRoots();
+//경로 
+FileSystemView fsv=FileSystemView.getFileSystemView();
+//파일시스템을 보여준다..
+
+FileSystemView - 메서드 - 반환형이 FileSystemView 인 메서드
+--> getFileSystemView();
+
+for(int i=0; i<diver.length; i++){
+ DefaultMutableTreeNode node = null;
+ //나뭇가지 또 생성
+ String volumne =fsv.getSystemDisplayName(drive[i]);
+ node = new DefaultMutableTreeNode(volume);
+ //그 나뭇가지에는 볼륨 = 파일시스템(이름을보여주는)
+ root.add(node);
+}
+
+-----------------------------------------------------
+
+--파일을 불러오는 방식으로 하자
+createMusicDir() - 메서드 생성
+
+root = new DefaultMutableTreeNode("쥬크박스");
+//상위 노드생성
+
+File file = new File(path);
+File[] child = file.listFiles();
+//파일 리스트 가져오기
+
+for(int i=0; i<child.length; i++){
+ DefaultMutableTreeNode node=null;
+ node = new DefaultMutableTreeNode(child[i].getName());
+ root.add(node);
+}
+
+--treeselectionListener 라는게 있다.
+
+tree에다가 부착하고 메서드 재정의하자..
+이벤트 주체는 트리!!!
+--트리의 나뭇가지들을 클릭하면 이벤트발생함
+Object obj=e.getSource();
+JTree tree=(JTree) obj;
+DefaultMutableTreeNode node=(DefaultMutableTreeNode)     tree.getLastSelectedPathComponent();
+
+extract(node.getUserObject().toString());
+
+--파일이름을 sysout 으로 찍어보자.
+System.out.println(node.getUserObject());
+
+mp3 파일 재생위해 외부 오픈소스 - 아파치 - 프로젝트 - tika - 다운로드
+
+http://www.javazoom.net/mp3spi/sources.html
+
+mp3SPI 1.9.5 (170412일자 기준) 다운로드후 압축폴더안에 jar 파일
+lib 추가 및 build path 등록 후 import 하여 사용
+
+-------------------------------달력 만들기------------
+--각 월의 시작요일 구해오자!!
+자바의 날짜객체 <Calender> - 추상클래스 - 메서드 보자 반환형을 보자
+
+get(int field) = 상수일 가능성..
+상수는 누가 보유하나? 클래스!!
+API 에서 보자 API - Fields 에서 보자
+
+--이전, 다음버튼을 통해 월/연도를 바꾸자
+
+--각 월마다 시작하는 요일을 객체에게 묻자!!
+

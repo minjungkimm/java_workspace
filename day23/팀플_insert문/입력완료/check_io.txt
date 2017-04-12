@@ -1,0 +1,45 @@
+create sequence seq_check_io
+increment BY 1
+start with 1;
+
+
+insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 1, to_date('2017-4-13-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-14-00-00','yyyy-mm-dd-hh24-mi-ss'));
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 2, to_date('2017-4-14-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-15-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 3, to_date('2017-4-15-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-16-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 4, to_date('2017-4-16-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-17-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 5, to_date('2017-4-17-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-20-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 6, to_date('2017-4-18-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-21-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 7, to_date('2017-4-19-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-20-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 8, to_date('2017-4-20-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-21-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 9, to_date('2017-4-21-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-22-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 10, to_date('2017-4-22-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-23-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 11, to_date('2017-4-23-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-24-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 12, to_date('2017-4-24-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-26-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 13, to_date('2017-4-25-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-28-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 14, to_date('2017-4-26-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-28-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 15, to_date('2017-4-27-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-29-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 16, to_date('2017-4-28-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-4-19-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 17, to_date('2017-4-29-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-1-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 18, to_date('2017-4-30-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-4-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 19, to_date('2017-5-1-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-2-00-00','yyyy-mm-dd-hh24-mi-ss')); 
+ insert into CHECK_IO (CHECK_IO_ID, RESV_ID, CHECK_IN_TIME, CHECK_OUT_TIME)
+ VALUES (seq_check_io.nextVal, 20, to_date('2017-5-2-14-00-00','yyyy-mm-dd-hh24-mi-ss'), to_date('2017-5-6-00-00','yyyy-mm-dd-hh24-mi-ss')); 

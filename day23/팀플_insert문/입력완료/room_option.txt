@@ -1,0 +1,24 @@
+create sequence seq_room_option
+increment by 1
+start with 1;
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'deluxe',30,'single','mountain',2,'deluxe.jpg',70000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'business',30,'twin','ocean',	2,	'business.jpg',	90000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'grand', 45, 'single','mountain',4,	'grand.jpg',	130000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'first',	45,'twin',	'ocean',	4,	'first.jpg',	150000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'vip'	,60,'queen','mountain',6,'vip.jpg',180000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'vvip',60,'king','ocean',6,'vvip.jpg',200000);
+
+insert into room_option(room_option_id	, room_option_name,	room_option_size,	room_option_bed,	room_option_view,	room_option_max,	room_option_img,	room_option_price)
+values(seq_room_option.nextval,'sweet',100,'king_double','ocean',10,'sweet.jpg',400000);

@@ -1,0 +1,30 @@
+create sequence seq_guest_id
+increment by 1
+start with 1;
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone) 
+ values(seq_guest_id.nextval, 1, '김성현', '010-2222-2222');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 3, '이상훈', '010-1234-4875');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 5, '김정일', '010-2457-5798');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 6, '소지섭', '010-2467-4567');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 7, '송중기', '010-7789-4123');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 9, '한지민', '010-4478-4523');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 11, '한예슬', '010-3333-4444');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 13, '이영애', '010-4751-4576');
+
+insert into guest(guest_id, hotel_user_id, guest_name, guest_phone)
+values(seq_guest_id.nextval, 19, '장나라', '010-1122-4475');

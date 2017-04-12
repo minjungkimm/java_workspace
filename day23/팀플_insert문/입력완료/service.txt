@@ -1,0 +1,22 @@
+create sequence seq_service
+increment by 1
+start with 1;
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '조식','breakfast.jpg',15000);
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '점심','lunch.jpg',20000);
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '저녁','dinner.jpg',30000);
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '맥주','beer.jpg',5000);
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '와인','wine.jpg',25000);
+
+insert into service(service_id, service_name, service_img, service_price)
+values(seq_service.nextval, '안주','snack.jpg',10000);
+

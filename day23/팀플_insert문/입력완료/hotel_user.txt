@@ -1,0 +1,24 @@
+create sequence seq_hotel_user
+increment BY 1
+start with 1;
+
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 1);
+insert into HOTEL_USER(hotel_user_id, is_guest) VALUES(seq_hotel_user.nextVal, 0);
