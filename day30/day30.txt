@@ -1,0 +1,75 @@
+데이터 교환 형식
+현실의 존재하는 객체를 표현하는 형식에는 
+여러가지 방법이 있다.
+
+java
+jsp+spring+restful+mybatis+oracle
++Android
+Linux
+
+중간고사(국,영,수) 올 100 PS4 사줄게
+
+3개짜리 세부업무로 어우러진 트랜잭션
+국어 100
+영어 100
+수학 99.9
+
+특정업무가 세부적인 단위로 나뉘어져있고,
+하나라도 실패하면 돌아가는
+Transaction
+
+Transaction 이란?
+세부업무가 모두 성공해야 전체를 성공으로 간주하는
+논리적 업무수행단위
+트랜잭션의 적용은! 쿼리문 중 DML(조작) 에 국한됨
+DDL 삶과 죽음에 대한 정의는 돌려놓을 수 없다..
+
+은행업무 하나의 업무같지만 실제로는
+나누어져서 세부적인 업무
+
+--car 테이블 갖고 실습
+--create 한 테이블
+delete from car; 
+--첫번째 세무업무
+rollback;
+--트랜잭션 종료
+
+--새로운 트랜잭션 시작
+--두개짜리 업무시작
+update car set brand='현대'
+--첫번째 업무
+update car set color='검정';
+--두번째 업무
+--트랜잭션을 종료시키기 위한 두가지 , rollback , commit
+rollback;
+--종료
+
+사원 테이블
+staff
+
+이름
+나이
+
+가입이라는 절차중에
+테이블 두개에 입력이 들어가야한다
+
+identifying relationship 
+: 1:1 관계에서는 부모의 primary key 가
+나의 외래키이자 가 primary key가 될수있다 
+
+1:1관게에서는 자식 테이블의 외래키가
+레코드 간 구분이 가능한 상태이므로, 
+
+--1:1 관계 지정방법--
+1:1관계는 1:n관계로 지정한뒤
+관계선을 클릭해서 정보창에서 다중성을 1관계로 수정하면됨
+------------------
+
+primary key 의 궁극적 목적 : 레코드의 구분
+
+--오라클 작성
+create sequence seq_staff
+increment by 1
+start with 1
+
+

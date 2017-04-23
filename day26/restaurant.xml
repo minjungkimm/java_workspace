@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<restaurants>
+	<restaurant>
+		<name></name>
+		<loc></loc>
+		<menus>
+			<food-name></food-name>
+			<price></price>
+			<info></info>
+		</menus>
+	</restaurant>
+</restaurants>

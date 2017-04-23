@@ -1,0 +1,86 @@
+데이터 교환 형식
+-XML : 이 기종간 데이터 교환 형식
+           리눅스 서버 -- 윈도우 서버
+-2007: 아이폰과 다양한 모바일 단말기의 등장으로
+           더더욱 많이 쓰임
+	PDA(Window CE)
+
+-XML VS JSON
+
+XML 문서 해석해보기!!
+-자바 프로그램에서 xml 해석해보기
+=xml 파싱(parsing)하기!! 
+(파싱: 구문을 분석해서 의미있는 데이터를 추출하는것)
+
+오늘의 파싱대상: XML
+배울 방식 : sax , dom 방식
+
+요즘은 우리가 용량이 넉넉한 데스크탑이 아닌,
+스마트폰 기기를 사용하기 때문에
+DOM 방식을 사용하면 사용시 마다 객체를 생성해서 올리기 때문에
+메모리 부족상황이 올수 있다
+그러므로 XML 방식이 더 좋을수 있다
+
+이클립스에서 xml 파일 생성방법
+-new - XML - XML file - 다음 - finish
+밑에 하단 메뉴바에서 design 말고, 창을 source 선택
+
+<members>  
+	<member> - 클래스명 : 테이블명
+		<name>이긍열</name> - 멤버변수 : 컬럼
+		<age>30</age>
+		<gender>여</gender>
+		<name>김희준</name>
+		<age>24</age>
+		<gender>여</gender>
+	</member>	
+</members>
+
+{	"members":[
+	{
+	"name" : "이긍열",
+	"age" : 30,
+	"gender" : "여"
+	},
+	{
+	"name" : "이긍열2",
+	"age" : 30,
+	"gender" : "남"
+	}
+	]
+}
+
+SAXParser 사용해보자
+
+String(char[] value, int offset, int count) 
+Allocates a new String that contains characters from a subarray of the character array argument.
+밸류를 가져오는데 옵셋부터 카운트까지
+
+<members>
+<member>
+		<name>이긍열</name>
+		<age>30</age>
+		<gender>여</gender>
+		<name>김희준</name>
+		<age>24</age>
+		<gender>여</gender>
+</member>
+</members>
+
+1. 이차원 백터와의 연결 전에 파싱과의 연결부터 하자
+2. 새로운 핸들러 생성 - extends 디폴트 핸들러 연결
+3. 필요한 이벤트 호출메서드를 생성하자
+4. 시작태그,텍스트,닫는태그가 발견되면 호출되는 메서드 생성
+5. 핸들러에 필요한 파싱 적용하자
+	SAXParserFactory factory;
+SAXParser parser;
+Handler handler;
+String path="C:/Java_workspace2/XMLProject/data/Member.xml";
+
+--------------------------------------------------
+factory = SAXParserFactory.newInstance();
+
+parser = factory.newSAXParser();
+parser.parse(new File(path), new Handler(model));
+
+6. 핸들러 클래스로 넘어가서 작업시작

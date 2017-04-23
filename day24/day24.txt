@@ -1,0 +1,65 @@
+----------오늘수업의 주제 : JFreeChart - 엑셀로저장, 그래프화 해보자
+
+구글에 JFreeChart 검색하면 org 공식사이트 맨위에 ..
+다운로드 - sourceforge 클릭해서 사이트 들어가보자.. - 유명사이트
+zip 다운로드 받아서 안에있는 lib 전부 복붙해서
+오늘자 프로젝트 lib에 추가 bulid path 추가하기..
+
+----------JFreeChart 참조, 예제가 많은 사이트 추천
+https://www.tutorialspoint.com/jfreechart/ - 참조사이트
+
+JFreeChart - pie Chart 에서 - 코드 전부 복사해서 클래스 생성해서 실습하기
+
+갖다붙힌 후부터 -----------------------------
+
+- import org.jfree.ui.ApplicationFrame; //지우자
+  우리는 우리의 JFrame (AppMain 클래스에 붙힐 JPanel) 붙힐것이다.
+  JPanel 로 수정
+
+- 데이터베이스 와의 연동
+De
+dataset.setValue("항목이름", new Double(100에서얼마나차지하는지?));
+- 생성시 메서드 이용
+- chart title 수정
+- 차트는 단독적으로 존재할 수 없고, 패널에 얹혀져야 한다 -> 차트패널에 차트가 얹혀져야함
+- 그러므로 , 우리의 AppMain 오른쪽에 차트패널, 차트가 존재한다
+- 차트의 기반인 데이터베이스는 왼쪽에 존재
+
+- 우리가 차트로 실습해서 보여줄 것 
+1. 성별 시험응시 학생수
+성별 응시자수 전체학생수 비율
+남    34명       50      66
+여    16명       50      34
+2. 학년별 과목 평균점수
+학년  총학생수 평균 전체평균 비율
+1     9         78    95   20
+2     30       86    87   50
+
+---------------------------차트생성
+DefaultPieDataset dataset = new DefaultPieDataset();
+
+공식사이트 - api 문서보자
+
+public static JFreeChart createPieChart(java.lang.String title,
+                                        PieDataset dataset,
+                                        boolean legend,
+                                        boolean tooltips,
+                                        boolean urls)
+
+title - 위에 제목
+regend - 밑에 항목그림
+
+
+---------------------------차트가 완성되었지만 , 한글이 깨짐
+
+
+---------------------------엑셀저장위해서 , poi 라이브러리 끌어오자
+아파치 에서 다운 잊지말자
+
+---------------------------엑셀 복습
+하위개념
+book(Excel) - sheet - row - cell
+
+for문 돌아 row , cell 한번씩 - 아웃풋스트림 끝
+
+ 

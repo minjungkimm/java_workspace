@@ -1,0 +1,16 @@
+select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv order by room_number ;
+
+select resv_id, hotel_user_id, r.room_number, to_char(resv_time, 'yy-mm-dd') as resv_time 
+from room r left outer join resv re
+on r.room_number=re.room_number
+order by room_number asc;
+-----------------------------------------------------------------------
+
+select resv_id, hotel_user_id, r.room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from room r left outer join resv re on r.room_number=re.room_number and
+where to_char(resv_time,'yyyy')='"+yy+"'(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm))+"' order by room_number asc;
+
+
+
+
+---------------------------¿øº» sql
+select resv_id, hotel_user_id, room_number, to_char(resv_time, 'yy-mm-dd') as resv_time from resv where to_char(resv_time, 'yyyy')='"+yy+"' and to_char(resv_time,'mm')='"+DateUtil.getDateString(Integer.toString(mm))+"'order by room_number

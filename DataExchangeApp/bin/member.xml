@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members>
+	<member>
+		<name>이긍열</name>
+		<age>27</age>
+		<phone>010-8896-6323</phone>
+		<gender>남</gender>
+	</member>
+	<member>
+		<name>김연실</name>
+		<age>25</age>
+		<phone>010-8821-7979</phone>
+		<gender>여</gender>
+	</member>
+	<member>
+		<name>황재문</name>
+		<age>26</age>
+		<phone>010-2363-6341</phone>
+		<gender>남</gender>
+	</member>
+</members>

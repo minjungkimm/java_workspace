@@ -1,0 +1,11 @@
+오늘 수업의 주제 : (어제 내준 DataExchageApp폴더의 과제)데이터 교환 형식을 자유롭게 왔다갔다 하자
+
+1. saxparserFactory factory 생성 = newInstance
+2. factory.parser 생성
+
+핸들러에서 이벤트가 발생할 때
+
+파일형식은 xml, json,table - 파일형식은 다르지만
+객체에 대한 표현방법만 다를뿐
+클래스 , 테이블 과 같이 생각할수도 있다..
+

@@ -1,0 +1,22 @@
+--콘솔창에서 직접해주세요. 
+--시스템 계정으로 들어가주세요.
+sqlplus system/manager 
+
+--현재 만들어놓은 테이블이 많기때문에 dual 테이블이 들어갈 공간확보위해
+--용량 늘려주세요
+alter database datafile 'C:\oraclexe\app\oracle\oradata\XE\bread.dbf' resize 20m;
+
+--dual 테이블 생성
+create table dual (
+ x char(1)
+);
+
+--조회 테이블
+select to_date('2017-12-31-05-30', 'yyyy-mm-dd hh24 mi') from dual;
+
+SELECT TO_DATE('20161010 11:11:11' , 'YYYYMMDD HH24:MI:SS') FROM DUAL
+
+
+--업데이트 문
+update check_io set check_in_time=to_date('2017-12-31-05-30', 'yyyy-mm-dd hh-MI')
+where check_io_id=1;

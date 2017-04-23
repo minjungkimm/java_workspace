@@ -1,0 +1,12 @@
+--콘솔창에서 직접해주세요. 
+--시스템 계정으로 들어가주세요.
+sqlplus system/manager 
+
+--현재 만들어놓은 테이블이 많기때문에 dual 테이블이 들어갈 공간확보위해
+--용량 늘려주세요
+alter database datafile 'C:\oraclexe\app\oracle\oradata\XE\bread.dbf' resize 20m;
+
+--dual 테이블 생성
+create table dual (
+ x char(1)
+);

@@ -1,0 +1,37 @@
+create table score(
+  score_id number primary key
+ , grade number 
+ , gender char(3)
+ , kor number default 0
+ , eng  number default 0
+ , math number default 0
+);
+
+create sequence seq_score
+increment by 1
+start with 1;
+
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',56,89,50);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',100,23,60);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'여',95,56,70);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',87,89,80);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',40,74,60);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'여',20,56,40);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',80,89,30);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'남',85,12,10);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',95,36,40);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'여',95,96,50);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'여',100,56,60);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'여',74,87,90);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,3,'남',63,78,70);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,3,'남',50,9,80);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,3,'남',90,86,90);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,3,'여',95,76,60);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,3,'여',80,89,30);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',70,80,50);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',60,90,80);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'남',80,60,20);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'여',70,40,10);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'여',90,70,80);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,2,'여',78,30,90);
+insert into score(score_id, grade,gender,kor,eng,math) values(seq_score.nextval,1,'여',87,20,90);

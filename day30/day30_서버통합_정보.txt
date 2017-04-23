@@ -1,0 +1,5 @@
+host: 211.238.142.108
+port: 1521
+sid: XE
+user: hotelmanager
+password:manager4

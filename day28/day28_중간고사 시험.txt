@@ -1,0 +1,76 @@
+1. 자바 se 에서 객체만을 모아서 처리하는데 유용한 클래스들을 모아놓은 라이브러리를
+지원하는 것은? 컬렉션 프레임웍
+
+2. 예외처리의 궁극적 목적은? 비정상 종료의 방지
+
+3. GOF의 저서인 디자인 패턴에 소개된 개발방법중 객체의 인스턴스를 하나만
+생성할 수 있는 개발 방법은? 싱글톤 패턴
+
+4. JDBC 관련 객체 중 데이터베이스에 접속을 시도하는 객체는?
+DriverManager
+
+5. 쓰레드의 생명주기 (life cycle) 중 , jvm 에 의해 선택된 쓰레드가
+런 메서드를 수행중인 단계는?
+running
+
+6. 클래스가 보유한 변수에 private 를 가하고, getter/setter 이용 
+은닉화
+
+7. String 클래스를 생성하는 
+상수풀
+
+8. interface
+
+9. wrapper 클래스
+
+10. super 클래스
+
+11. jar
+
+12. public static final
+
+13. 오버로딩
+
+14. 오버라이딩
+
+15. checked exception
+
+16. DTO , VO
+
+17. generic type
+
+18. socket
+
+19. jdbc 드라이버
+
+20. iterator  (jdk 1.5부터 지원하는)
+
+========================================
+
+오라클 문제
+
+1. erd - 객체관계도 (entity relationship diagram)
+
+2. join 
+
+3. 제약조건
+
+4. primary key
+
+5. DML
+
+6. 집계함수
+
+7. create sequence see_member
+start with 5 
+increment by 3;
+ 
+8. inner join
+
+9. select dname, count(empno)
+from dept left outer join emp
+on d.deptno=e.deptno
+group by dname;
+
+10. 바인드변수
+
